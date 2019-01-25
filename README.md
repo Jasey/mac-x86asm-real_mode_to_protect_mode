@@ -155,3 +155,20 @@ ES 扩展段基地址寄存器，可以根据这个寄存器基地址访问数�
 #### 基址寄存器和变址寄存器组合
 
 `[bx+si], [bx+di], [bp+si],[bp+di]`
+
+#### 指令对寄存器的影响表格
+
+|:|:|:|
+| op | flags | comment |
+| add | OF,SF,ZF,AF,CF,PF | |
+| cbw | `none` | |
+| cld | DF=0 | 其余标志位没有定义，故而不要依赖其他标志 |
+| cwd | `none` | |
+| dec | OF,SF,ZF,AF,PF | CF不受影响，通常循环体使用，循环体内可能用到CF，故而不打扰CF标志 |
+| div/idiv | `none` | 未定义 |
+| inc | OF,SF,ZF,AF,PF | CF不影响 |
+| mov/movs | `none` | |
+| neg | OF,SF,ZF,AF,CF,PF | 如果操作数为0 ? CF = 0 : CF = 1 |
+| std | DF=1 | |
+| sub | OF,SF,ZF,AF,CF,PF | |
+| xor | OF=0, CF=0,SF,ZF,PF| |
