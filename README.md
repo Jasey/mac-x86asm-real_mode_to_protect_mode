@@ -100,3 +100,9 @@ log: bochsout.txt
 ```shell 
     $ $HOME/tools/bochs/bin/bochs
 ```
+
+### mac tool
+
+[mbr-lba使用文档](https://github.com/Jasey/c-tools)
+
+
