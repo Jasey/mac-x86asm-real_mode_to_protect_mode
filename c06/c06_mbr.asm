@@ -16,11 +16,11 @@
          mov ax,0xb800                 ;设置附加段基地址 
          mov es,ax
          
-         cld
+         cld                           ;清除标志寄存器的DF标志，表明数据填充方向是低地址到高地址
          mov si,mytext                 
          mov di,0
          mov cx,(number-mytext)/2      ;实际上等于 13
-         rep movsw
+         rep movsw                     ;如果设置的是movsb，则DF标志为0或者为1都不影响数据的存放方式
      
          ;得到标号所代表的偏移地址
          mov ax,number
