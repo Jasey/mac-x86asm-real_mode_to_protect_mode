@@ -1,21 +1,21 @@
-         ;´úÂëÇåµ¥9-1
-         ;ÎÄ¼şÃû£ºc09_1.asm
-         ;ÎÄ¼şËµÃ÷£ºÓÃ»§³ÌĞò 
-         ;´´½¨ÈÕÆÚ£º2011-4-16 22:03
+         ;ä»£ç æ¸…å•9-1
+         ;æ–‡ä»¶åï¼šc09_1.asm
+         ;æ–‡ä»¶è¯´æ˜ï¼šç”¨æˆ·ç¨‹åº 
+         ;åˆ›å»ºæ—¥æœŸï¼š2011-4-16 22:03
          
 ;===============================================================================
-SECTION header vstart=0                     ;¶¨ÒåÓÃ»§³ÌĞòÍ·²¿¶Î 
-    program_length  dd program_end          ;³ÌĞò×Ü³¤¶È[0x00]
+SECTION header vstart=0                     ;å®šä¹‰ç”¨æˆ·ç¨‹åºå¤´éƒ¨æ®µ 
+    program_length  dd program_end          ;ç¨‹åºæ€»é•¿åº¦[0x00]
     
-    ;ÓÃ»§³ÌĞòÈë¿Úµã
-    code_entry      dw start                ;Æ«ÒÆµØÖ·[0x04]
-                    dd section.code.start   ;¶ÎµØÖ·[0x06] 
+    ;ç”¨æˆ·ç¨‹åºå…¥å£ç‚¹
+    code_entry      dw start                ;åç§»åœ°å€[0x04]
+                    dd section.code.start   ;æ®µåœ°å€[0x06] 
     
     realloc_tbl_len dw (header_end-realloc_begin)/4
-                                            ;¶ÎÖØ¶¨Î»±íÏî¸öÊı[0x0a]
+                                            ;æ®µé‡å®šä½è¡¨é¡¹ä¸ªæ•°[0x0a]
     
     realloc_begin:
-    ;¶ÎÖØ¶¨Î»±í           
+    ;æ®µé‡å®šä½è¡¨           
     code_segment    dd section.code.start   ;[0x0c]
     data_segment    dd section.data.start   ;[0x14]
     stack_segment   dd section.stack.start  ;[0x1c]
@@ -23,7 +23,7 @@ SECTION header vstart=0                     ;¶¨ÒåÓÃ»§³ÌĞòÍ·²¿¶Î
 header_end:                
     
 ;===============================================================================
-SECTION code align=16 vstart=0           ;¶¨Òå´úÂë¶Î£¨16×Ö½Ú¶ÔÆë£© 
+SECTION code align=16 vstart=0           ;å®šä¹‰ä»£ç æ®µï¼ˆ16å­—èŠ‚å¯¹é½ï¼‰ 
 new_int_0x70:
       push ax
       push bx
@@ -32,66 +32,66 @@ new_int_0x70:
       push es
       
   .w0:                                    
-      mov al,0x0a                        ;×è¶ÏNMI¡£µ±È»£¬Í¨³£ÊÇ²»±ØÒªµÄ
+      mov al,0x0a                        ;é˜»æ–­NMIã€‚å½“ç„¶ï¼Œé€šå¸¸æ˜¯ä¸å¿…è¦çš„
       or al,0x80                          
       out 0x70,al
-      in al,0x71                         ;¶Á¼Ä´æÆ÷A
-      test al,0x80                       ;²âÊÔµÚ7Î»UIP 
-      jnz .w0                            ;ÒÔÉÏ´úÂë¶ÔÓÚ¸üĞÂÖÜÆÚ½áÊøÖĞ¶ÏÀ´Ëµ 
-                                         ;ÊÇ²»±ØÒªµÄ 
+      in al,0x71                         ;è¯»å¯„å­˜å™¨A
+      test al,0x80                       ;æµ‹è¯•ç¬¬7ä½UIP 
+      jnz .w0                            ;ä»¥ä¸Šä»£ç å¯¹äºæ›´æ–°å‘¨æœŸç»“æŸä¸­æ–­æ¥è¯´ 
+                                         ;æ˜¯ä¸å¿…è¦çš„ 
       xor al,al
       or al,0x80
       out 0x70,al
-      in al,0x71                         ;¶ÁRTCµ±Ç°Ê±¼ä(Ãë)
+      in al,0x71                         ;è¯»RTCå½“å‰æ—¶é—´(ç§’)
       push ax
 
       mov al,2
       or al,0x80
       out 0x70,al
-      in al,0x71                         ;¶ÁRTCµ±Ç°Ê±¼ä(·Ö)
+      in al,0x71                         ;è¯»RTCå½“å‰æ—¶é—´(åˆ†)
       push ax
 
       mov al,4
       or al,0x80
       out 0x70,al
-      in al,0x71                         ;¶ÁRTCµ±Ç°Ê±¼ä(Ê±)
+      in al,0x71                         ;è¯»RTCå½“å‰æ—¶é—´(æ—¶)
       push ax
 
-      mov al,0x0c                        ;¼Ä´æÆ÷CµÄË÷Òı¡£ÇÒ¿ª·ÅNMI 
+      mov al,0x0c                        ;å¯„å­˜å™¨Cçš„ç´¢å¼•ã€‚ä¸”å¼€æ”¾NMI 
       out 0x70,al
-      in al,0x71                         ;¶ÁÒ»ÏÂRTCµÄ¼Ä´æÆ÷C£¬·ñÔòÖ»·¢ÉúÒ»´ÎÖĞ¶Ï
-                                         ;´Ë´¦²»¿¼ÂÇÄÖÖÓºÍÖÜÆÚĞÔÖĞ¶ÏµÄÇé¿ö 
+      in al,0x71                         ;è¯»ä¸€ä¸‹RTCçš„å¯„å­˜å™¨Cï¼Œå¦åˆ™åªå‘ç”Ÿä¸€æ¬¡ä¸­æ–­
+                                         ;æ­¤å¤„ä¸è€ƒè™‘é—¹é’Ÿå’Œå‘¨æœŸæ€§ä¸­æ–­çš„æƒ…å†µ 
       mov ax,0xb800
       mov es,ax
 
       pop ax
       call bcd_to_ascii
-      mov bx,12*160 + 36*2               ;´ÓÆÁÄ»ÉÏµÄ12ĞĞ36ÁĞ¿ªÊ¼ÏÔÊ¾
+      mov bx,12*160 + 36*2               ;ä»å±å¹•ä¸Šçš„12è¡Œ36åˆ—å¼€å§‹æ˜¾ç¤º
 
       mov [es:bx],ah
-      mov [es:bx+2],al                   ;ÏÔÊ¾Á½Î»Ğ¡Ê±Êı×Ö
+      mov [es:bx+2],al                   ;æ˜¾ç¤ºä¸¤ä½å°æ—¶æ•°å­—
 
       mov al,':'
-      mov [es:bx+4],al                   ;ÏÔÊ¾·Ö¸ô·û':'
-      not byte [es:bx+5]                 ;·´×ªÏÔÊ¾ÊôĞÔ 
+      mov [es:bx+4],al                   ;æ˜¾ç¤ºåˆ†éš”ç¬¦':'
+      not byte [es:bx+5]                 ;åè½¬æ˜¾ç¤ºå±æ€§ 
 
       pop ax
       call bcd_to_ascii
       mov [es:bx+6],ah
-      mov [es:bx+8],al                   ;ÏÔÊ¾Á½Î»·ÖÖÓÊı×Ö
+      mov [es:bx+8],al                   ;æ˜¾ç¤ºä¸¤ä½åˆ†é’Ÿæ•°å­—
 
       mov al,':'
-      mov [es:bx+10],al                  ;ÏÔÊ¾·Ö¸ô·û':'
-      not byte [es:bx+11]                ;·´×ªÏÔÊ¾ÊôĞÔ
+      mov [es:bx+10],al                  ;æ˜¾ç¤ºåˆ†éš”ç¬¦':'
+      not byte [es:bx+11]                ;åè½¬æ˜¾ç¤ºå±æ€§
 
       pop ax
       call bcd_to_ascii
       mov [es:bx+12],ah
-      mov [es:bx+14],al                  ;ÏÔÊ¾Á½Î»Ğ¡Ê±Êı×Ö
+      mov [es:bx+14],al                  ;æ˜¾ç¤ºä¸¤ä½å°æ—¶æ•°å­—
       
-      mov al,0x20                        ;ÖĞ¶Ï½áÊøÃüÁîEOI 
-      out 0xa0,al                        ;Ïò´ÓÆ¬·¢ËÍ 
-      out 0x20,al                        ;ÏòÖ÷Æ¬·¢ËÍ 
+      mov al,0x20                        ;ä¸­æ–­ç»“æŸå‘½ä»¤EOI 
+      out 0xa0,al                        ;å‘ä»ç‰‡å‘é€ 
+      out 0x20,al                        ;å‘ä¸»ç‰‡å‘é€ 
 
       pop es
       pop dx
@@ -102,14 +102,14 @@ new_int_0x70:
       iret
 
 ;-------------------------------------------------------------------------------
-bcd_to_ascii:                            ;BCDÂë×ªASCII
-                                         ;ÊäÈë£ºAL=bcdÂë
-                                         ;Êä³ö£ºAX=ascii
-      mov ah,al                          ;·Ö²ğ³ÉÁ½¸öÊı×Ö 
-      and al,0x0f                        ;½ö±£ÁôµÍ4Î» 
-      add al,0x30                        ;×ª»»³ÉASCII 
+bcd_to_ascii:                            ;BCDç è½¬ASCII
+                                         ;è¾“å…¥ï¼šAL=bcdç 
+                                         ;è¾“å‡ºï¼šAX=ascii
+      mov ah,al                          ;åˆ†æ‹†æˆä¸¤ä¸ªæ•°å­— 
+      and al,0x0f                        ;ä»…ä¿ç•™ä½4ä½ 
+      add al,0x30                        ;è½¬æ¢æˆASCII 
 
-      shr ah,4                           ;Âß¼­ÓÒÒÆ4Î» 
+      shr ah,4                           ;é€»è¾‘å³ç§»4ä½ 
       and ah,0x0f                        
       add ah,0x30
 
@@ -123,74 +123,74 @@ start:
       mov ax,[data_segment]
       mov ds,ax
       
-      mov bx,init_msg                    ;ÏÔÊ¾³õÊ¼ĞÅÏ¢ 
+      mov bx,init_msg                    ;æ˜¾ç¤ºåˆå§‹ä¿¡æ¯ 
       call put_string
 
-      mov bx,inst_msg                    ;ÏÔÊ¾°²×°ĞÅÏ¢ 
+      mov bx,inst_msg                    ;æ˜¾ç¤ºå®‰è£…ä¿¡æ¯ 
       call put_string
       
       mov al,0x70
       mov bl,4
-      mul bl                             ;¼ÆËã0x70ºÅÖĞ¶ÏÔÚIVTÖĞµÄÆ«ÒÆ
+      mul bl                             ;è®¡ç®—0x70å·ä¸­æ–­åœ¨IVTä¸­çš„åç§»
       mov bx,ax                          
 
-      cli                                ;·ÀÖ¹¸Ä¶¯ÆÚ¼ä·¢ÉúĞÂµÄ0x70ºÅÖĞ¶Ï
+      cli                                ;é˜²æ­¢æ”¹åŠ¨æœŸé—´å‘ç”Ÿæ–°çš„0x70å·ä¸­æ–­
 
       push es
       mov ax,0x0000
       mov es,ax
-      mov word [es:bx],new_int_0x70      ;Æ«ÒÆµØÖ·¡£
+      mov word [es:bx],new_int_0x70      ;åç§»åœ°å€ã€‚
                                           
-      mov word [es:bx+2],cs              ;¶ÎµØÖ·
+      mov word [es:bx+2],cs              ;æ®µåœ°å€
       pop es
 
-      mov al,0x0b                        ;RTC¼Ä´æÆ÷B
-      or al,0x80                         ;×è¶ÏNMI 
+      mov al,0x0b                        ;RTCå¯„å­˜å™¨B
+      or al,0x80                         ;é˜»æ–­NMI 
       out 0x70,al
-      mov al,0x12                        ;ÉèÖÃ¼Ä´æÆ÷B£¬½ûÖ¹ÖÜÆÚĞÔÖĞ¶Ï£¬¿ª·Å¸ü 
-      out 0x71,al                        ;ĞÂ½áÊøºóÖĞ¶Ï£¬BCDÂë£¬24Ğ¡Ê±ÖÆ 
+      mov al,0x12                        ;è®¾ç½®å¯„å­˜å™¨Bï¼Œç¦æ­¢å‘¨æœŸæ€§ä¸­æ–­ï¼Œå¼€æ”¾æ›´ 
+      out 0x71,al                        ;æ–°ç»“æŸåä¸­æ–­ï¼ŒBCDç ï¼Œ24å°æ—¶åˆ¶ 
 
       mov al,0x0c
       out 0x70,al
-      in al,0x71                         ;¶ÁRTC¼Ä´æÆ÷C£¬¸´Î»Î´¾öµÄÖĞ¶Ï×´Ì¬
+      in al,0x71                         ;è¯»RTCå¯„å­˜å™¨Cï¼Œå¤ä½æœªå†³çš„ä¸­æ–­çŠ¶æ€
 
-      in al,0xa1                         ;¶Á8259´ÓÆ¬µÄIMR¼Ä´æÆ÷ 
-      and al,0xfe                        ;Çå³ıbit 0(´ËÎ»Á¬½ÓRTC)
-      out 0xa1,al                        ;Ğ´»Ø´Ë¼Ä´æÆ÷ 
+      in al,0xa1                         ;è¯»8259ä»ç‰‡çš„IMRå¯„å­˜å™¨ 
+      and al,0xfe                        ;æ¸…é™¤bit 0(æ­¤ä½è¿æ¥RTC)
+      out 0xa1,al                        ;å†™å›æ­¤å¯„å­˜å™¨ 
 
-      sti                                ;ÖØĞÂ¿ª·ÅÖĞ¶Ï 
+      sti                                ;é‡æ–°å¼€æ”¾ä¸­æ–­ 
 
-      mov bx,done_msg                    ;ÏÔÊ¾°²×°Íê³ÉĞÅÏ¢ 
+      mov bx,done_msg                    ;æ˜¾ç¤ºå®‰è£…å®Œæˆä¿¡æ¯ 
       call put_string
 
-      mov bx,tips_msg                    ;ÏÔÊ¾ÌáÊ¾ĞÅÏ¢
+      mov bx,tips_msg                    ;æ˜¾ç¤ºæç¤ºä¿¡æ¯
       call put_string
       
       mov cx,0xb800
       mov ds,cx
-      mov byte [12*160 + 33*2],'@'       ;ÆÁÄ»µÚ12ĞĞ£¬35ÁĞ
+      mov byte [12*160 + 33*2],'@'       ;å±å¹•ç¬¬12è¡Œï¼Œ35åˆ—
        
  .idle:
-      hlt                                ;Ê¹CPU½øÈëµÍ¹¦ºÄ×´Ì¬£¬Ö±µ½ÓÃÖĞ¶Ï»½ĞÑ
-      not byte [12*160 + 33*2+1]         ;·´×ªÏÔÊ¾ÊôĞÔ 
+      hlt                                ;ä½¿CPUè¿›å…¥ä½åŠŸè€—çŠ¶æ€ï¼Œç›´åˆ°ç”¨ä¸­æ–­å”¤é†’
+      not byte [12*160 + 33*2+1]         ;åè½¬æ˜¾ç¤ºå±æ€§ 
       jmp .idle
 
 ;-------------------------------------------------------------------------------
-put_string:                              ;ÏÔÊ¾´®(0½áÎ²)¡£
-                                         ;ÊäÈë£ºDS:BX=´®µØÖ·
+put_string:                              ;æ˜¾ç¤ºä¸²(0ç»“å°¾)ã€‚
+                                         ;è¾“å…¥ï¼šDS:BX=ä¸²åœ°å€
          mov cl,[bx]
          or cl,cl                        ;cl=0 ?
-         jz .exit                        ;ÊÇµÄ£¬·µ»ØÖ÷³ÌĞò 
+         jz .exit                        ;æ˜¯çš„ï¼Œè¿”å›ä¸»ç¨‹åº 
          call put_char
-         inc bx                          ;ÏÂÒ»¸ö×Ö·û 
+         inc bx                          ;ä¸‹ä¸€ä¸ªå­—ç¬¦ 
          jmp put_string
 
    .exit:
          ret
 
 ;-------------------------------------------------------------------------------
-put_char:                                ;ÏÔÊ¾Ò»¸ö×Ö·û
-                                         ;ÊäÈë£ºcl=×Ö·ûascii
+put_char:                                ;æ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦
+                                         ;è¾“å…¥ï¼šcl=å­—ç¬¦ascii
          push ax
          push bx
          push cx
@@ -198,23 +198,23 @@ put_char:                                ;ÏÔÊ¾Ò»¸ö×Ö·û
          push ds
          push es
 
-         ;ÒÔÏÂÈ¡µ±Ç°¹â±êÎ»ÖÃ
+         ;ä»¥ä¸‹å–å½“å‰å…‰æ ‡ä½ç½®
          mov dx,0x3d4
          mov al,0x0e
          out dx,al
          mov dx,0x3d5
-         in al,dx                        ;¸ß8Î» 
+         in al,dx                        ;é«˜8ä½ 
          mov ah,al
 
          mov dx,0x3d4
          mov al,0x0f
          out dx,al
          mov dx,0x3d5
-         in al,dx                        ;µÍ8Î» 
-         mov bx,ax                       ;BX=´ú±í¹â±êÎ»ÖÃµÄ16Î»Êı
+         in al,dx                        ;ä½8ä½ 
+         mov bx,ax                       ;BX=ä»£è¡¨å…‰æ ‡ä½ç½®çš„16ä½æ•°
 
-         cmp cl,0x0d                     ;»Ø³µ·û£¿
-         jnz .put_0a                     ;²»ÊÇ¡£¿´¿´ÊÇ²»ÊÇ»»ĞĞµÈ×Ö·û 
+         cmp cl,0x0d                     ;å›è½¦ç¬¦ï¼Ÿ
+         jnz .put_0a                     ;ä¸æ˜¯ã€‚çœ‹çœ‹æ˜¯ä¸æ˜¯æ¢è¡Œç­‰å­—ç¬¦ 
          mov ax,bx                       ; 
          mov bl,80                       
          div bl
@@ -223,23 +223,23 @@ put_char:                                ;ÏÔÊ¾Ò»¸ö×Ö·û
          jmp .set_cursor
 
  .put_0a:
-         cmp cl,0x0a                     ;»»ĞĞ·û£¿
-         jnz .put_other                  ;²»ÊÇ£¬ÄÇ¾ÍÕı³£ÏÔÊ¾×Ö·û 
+         cmp cl,0x0a                     ;æ¢è¡Œç¬¦ï¼Ÿ
+         jnz .put_other                  ;ä¸æ˜¯ï¼Œé‚£å°±æ­£å¸¸æ˜¾ç¤ºå­—ç¬¦ 
          add bx,80
          jmp .roll_screen
 
- .put_other:                             ;Õı³£ÏÔÊ¾×Ö·û
+ .put_other:                             ;æ­£å¸¸æ˜¾ç¤ºå­—ç¬¦
          mov ax,0xb800
          mov es,ax
          shl bx,1
          mov [es:bx],cl
 
-         ;ÒÔÏÂ½«¹â±êÎ»ÖÃÍÆ½øÒ»¸ö×Ö·û
+         ;ä»¥ä¸‹å°†å…‰æ ‡ä½ç½®æ¨è¿›ä¸€ä¸ªå­—ç¬¦
          shr bx,1
          add bx,1
 
  .roll_screen:
-         cmp bx,2000                     ;¹â±ê³¬³öÆÁÄ»£¿¹öÆÁ
+         cmp bx,2000                     ;å…‰æ ‡è¶…å‡ºå±å¹•ï¼Ÿæ»šå±
          jl .set_cursor
 
          mov ax,0xb800
@@ -250,7 +250,7 @@ put_char:                                ;ÏÔÊ¾Ò»¸ö×Ö·û
          mov di,0x00
          mov cx,1920
          rep movsw
-         mov bx,3840                     ;Çå³ıÆÁÄ»×îµ×Ò»ĞĞ
+         mov bx,3840                     ;æ¸…é™¤å±å¹•æœ€åº•ä¸€è¡Œ
          mov cx,80
  .cls:
          mov word[es:bx],0x0720

@@ -1,144 +1,144 @@
-         ;´úÂëÇåµ¥13-1
-         ;ÎÄ¼þÃû£ºc13_mbr.asm
-         ;ÎÄ¼þËµÃ÷£ºÓ²ÅÌÖ÷Òýµ¼ÉÈÇø´úÂë 
-         ;´´½¨ÈÕÆÚ£º2011-10-28 22:35        ;ÉèÖÃ¶ÑÕ»¶ÎºÍÕ»Ö¸Õë 
+         ;ä»£ç æ¸…å•13-1
+         ;æ–‡ä»¶åï¼šc13_mbr.asm
+         ;æ–‡ä»¶è¯´æ˜Žï¼šç¡¬ç›˜ä¸»å¼•å¯¼æ‰‡åŒºä»£ç  
+         ;åˆ›å»ºæ—¥æœŸï¼š2011-10-28 22:35        ;è®¾ç½®å †æ ˆæ®µå’Œæ ˆæŒ‡é’ˆ 
          
-         core_base_address equ 0x00040000   ;³£Êý£¬ÄÚºË¼ÓÔØµÄÆðÊ¼ÄÚ´æµØÖ· 
-         core_start_sector equ 0x00000001   ;³£Êý£¬ÄÚºËµÄÆðÊ¼Âß¼­ÉÈÇøºÅ 
+         core_base_address equ 0x00040000   ;å¸¸æ•°ï¼Œå†…æ ¸åŠ è½½çš„èµ·å§‹å†…å­˜åœ°å€ 
+         core_start_sector equ 0x00000001   ;å¸¸æ•°ï¼Œå†…æ ¸çš„èµ·å§‹é€»è¾‘æ‰‡åŒºå· 
          
          mov ax,cs      
          mov ss,ax
          mov sp,0x7c00
       
-         ;¼ÆËãGDTËùÔÚµÄÂß¼­¶ÎµØÖ·
-         mov eax,[cs:pgdt+0x7c00+0x02]      ;GDTµÄ32Î»ÎïÀíµØÖ· 
+         ;è®¡ç®—GDTæ‰€åœ¨çš„é€»è¾‘æ®µåœ°å€
+         mov eax,[cs:pgdt+0x7c00+0x02]      ;GDTçš„32ä½ç‰©ç†åœ°å€ 
          xor edx,edx
          mov ebx,16
-         div ebx                            ;·Ö½â³É16Î»Âß¼­µØÖ· 
+         div ebx                            ;åˆ†è§£æˆ16ä½é€»è¾‘åœ°å€ 
 
-         mov ds,eax                         ;ÁîDSÖ¸Ïò¸Ã¶ÎÒÔ½øÐÐ²Ù×÷
-         mov ebx,edx                        ;¶ÎÄÚÆðÊ¼Æ«ÒÆµØÖ· 
+         mov ds,eax                         ;ä»¤DSæŒ‡å‘è¯¥æ®µä»¥è¿›è¡Œæ“ä½œ
+         mov ebx,edx                        ;æ®µå†…èµ·å§‹åç§»åœ°å€ 
 
-         ;Ìø¹ý0#ºÅÃèÊö·ûµÄ²ÛÎ» 
-         ;´´½¨1#ÃèÊö·û£¬ÕâÊÇÒ»¸öÊý¾Ý¶Î£¬¶ÔÓ¦0~4GBµÄÏßÐÔµØÖ·¿Õ¼ä
-         mov dword [ebx+0x08],0x0000ffff    ;»ùµØÖ·Îª0£¬¶Î½çÏÞÎª0xFFFFF
-         mov dword [ebx+0x0c],0x00cf9200    ;Á£¶ÈÎª4KB£¬´æ´¢Æ÷¶ÎÃèÊö·û 
+         ;è·³è¿‡0#å·æè¿°ç¬¦çš„æ§½ä½ 
+         ;åˆ›å»º1#æè¿°ç¬¦ï¼Œè¿™æ˜¯ä¸€ä¸ªæ•°æ®æ®µï¼Œå¯¹åº”0~4GBçš„çº¿æ€§åœ°å€ç©ºé—´
+         mov dword [ebx+0x08],0x0000ffff    ;åŸºåœ°å€ä¸º0ï¼Œæ®µç•Œé™ä¸º0xFFFFF
+         mov dword [ebx+0x0c],0x00cf9200    ;ç²’åº¦ä¸º4KBï¼Œå­˜å‚¨å™¨æ®µæè¿°ç¬¦ 
 
-         ;´´½¨±£»¤Ä£Ê½ÏÂ³õÊ¼´úÂë¶ÎÃèÊö·û
-         mov dword [ebx+0x10],0x7c0001ff    ;»ùµØÖ·Îª0x00007c00£¬½çÏÞ0x1FF 
-         mov dword [ebx+0x14],0x00409800    ;Á£¶ÈÎª1¸ö×Ö½Ú£¬´úÂë¶ÎÃèÊö·û 
+         ;åˆ›å»ºä¿æŠ¤æ¨¡å¼ä¸‹åˆå§‹ä»£ç æ®µæè¿°ç¬¦
+         mov dword [ebx+0x10],0x7c0001ff    ;åŸºåœ°å€ä¸º0x00007c00ï¼Œç•Œé™0x1FF 
+         mov dword [ebx+0x14],0x00409800    ;ç²’åº¦ä¸º1ä¸ªå­—èŠ‚ï¼Œä»£ç æ®µæè¿°ç¬¦ 
 
-         ;½¨Á¢±£»¤Ä£Ê½ÏÂµÄ¶ÑÕ»¶ÎÃèÊö·û      ;»ùµØÖ·Îª0x00007C00£¬½çÏÞ0xFFFFE 
-         mov dword [ebx+0x18],0x7c00fffe    ;Á£¶ÈÎª4KB 
+         ;å»ºç«‹ä¿æŠ¤æ¨¡å¼ä¸‹çš„å †æ ˆæ®µæè¿°ç¬¦      ;åŸºåœ°å€ä¸º0x00007C00ï¼Œç•Œé™0xFFFFE 
+         mov dword [ebx+0x18],0x7c00fffe    ;ç²’åº¦ä¸º4KB 
          mov dword [ebx+0x1c],0x00cf9600
          
-         ;½¨Á¢±£»¤Ä£Ê½ÏÂµÄÏÔÊ¾»º³åÇøÃèÊö·û   
-         mov dword [ebx+0x20],0x80007fff    ;»ùµØÖ·Îª0x000B8000£¬½çÏÞ0x07FFF 
-         mov dword [ebx+0x24],0x0040920b    ;Á£¶ÈÎª×Ö½Ú
+         ;å»ºç«‹ä¿æŠ¤æ¨¡å¼ä¸‹çš„æ˜¾ç¤ºç¼“å†²åŒºæè¿°ç¬¦   
+         mov dword [ebx+0x20],0x80007fff    ;åŸºåœ°å€ä¸º0x000B8000ï¼Œç•Œé™0x07FFF 
+         mov dword [ebx+0x24],0x0040920b    ;ç²’åº¦ä¸ºå­—èŠ‚
          
-         ;³õÊ¼»¯ÃèÊö·û±í¼Ä´æÆ÷GDTR
-         mov word [cs: pgdt+0x7c00],39      ;ÃèÊö·û±íµÄ½çÏÞ   
+         ;åˆå§‹åŒ–æè¿°ç¬¦è¡¨å¯„å­˜å™¨GDTR
+         mov word [cs: pgdt+0x7c00],39      ;æè¿°ç¬¦è¡¨çš„ç•Œé™   
  
          lgdt [cs: pgdt+0x7c00]
       
-         in al,0x92                         ;ÄÏÇÅÐ¾Æ¬ÄÚµÄ¶Ë¿Ú 
+         in al,0x92                         ;å—æ¡¥èŠ¯ç‰‡å†…çš„ç«¯å£ 
          or al,0000_0010B
-         out 0x92,al                        ;´ò¿ªA20
+         out 0x92,al                        ;æ‰“å¼€A20
 
-         cli                                ;ÖÐ¶Ï»úÖÆÉÐÎ´¹¤×÷
+         cli                                ;ä¸­æ–­æœºåˆ¶å°šæœªå·¥ä½œ
 
          mov eax,cr0
          or eax,1
-         mov cr0,eax                        ;ÉèÖÃPEÎ»
+         mov cr0,eax                        ;è®¾ç½®PEä½
       
-         ;ÒÔÏÂ½øÈë±£»¤Ä£Ê½... ...
-         jmp dword 0x0010:flush             ;16Î»µÄÃèÊö·ûÑ¡Ôñ×Ó£º32Î»Æ«ÒÆ
-                                            ;ÇåÁ÷Ë®Ïß²¢´®ÐÐ»¯´¦ÀíÆ÷
+         ;ä»¥ä¸‹è¿›å…¥ä¿æŠ¤æ¨¡å¼... ...
+         jmp dword 0x0010:flush             ;16ä½çš„æè¿°ç¬¦é€‰æ‹©å­ï¼š32ä½åç§»
+                                            ;æ¸…æµæ°´çº¿å¹¶ä¸²è¡ŒåŒ–å¤„ç†å™¨
          [bits 32]               
   flush:                                  
-         mov eax,0x0008                     ;¼ÓÔØÊý¾Ý¶Î(0..4GB)Ñ¡Ôñ×Ó
+         mov eax,0x0008                     ;åŠ è½½æ•°æ®æ®µ(0..4GB)é€‰æ‹©å­
          mov ds,eax
       
-         mov eax,0x0018                     ;¼ÓÔØ¶ÑÕ»¶ÎÑ¡Ôñ×Ó 
+         mov eax,0x0018                     ;åŠ è½½å †æ ˆæ®µé€‰æ‹©å­ 
          mov ss,eax
-         xor esp,esp                        ;¶ÑÕ»Ö¸Õë <- 0 
+         xor esp,esp                        ;å †æ ˆæŒ‡é’ˆ <- 0 
          
-         ;ÒÔÏÂ¼ÓÔØÏµÍ³ºËÐÄ³ÌÐò 
+         ;ä»¥ä¸‹åŠ è½½ç³»ç»Ÿæ ¸å¿ƒç¨‹åº 
          mov edi,core_base_address 
       
          mov eax,core_start_sector
-         mov ebx,edi                        ;ÆðÊ¼µØÖ· 
-         call read_hard_disk_0              ;ÒÔÏÂ¶ÁÈ¡³ÌÐòµÄÆðÊ¼²¿·Ö£¨Ò»¸öÉÈÇø£© 
+         mov ebx,edi                        ;èµ·å§‹åœ°å€ 
+         call read_hard_disk_0              ;ä»¥ä¸‹è¯»å–ç¨‹åºçš„èµ·å§‹éƒ¨åˆ†ï¼ˆä¸€ä¸ªæ‰‡åŒºï¼‰ 
       
-         ;ÒÔÏÂÅÐ¶ÏÕû¸ö³ÌÐòÓÐ¶à´ó
-         mov eax,[edi]                      ;ºËÐÄ³ÌÐò³ß´ç
+         ;ä»¥ä¸‹åˆ¤æ–­æ•´ä¸ªç¨‹åºæœ‰å¤šå¤§
+         mov eax,[edi]                      ;æ ¸å¿ƒç¨‹åºå°ºå¯¸
          xor edx,edx 
-         mov ecx,512                        ;512×Ö½ÚÃ¿ÉÈÇø
+         mov ecx,512                        ;512å­—èŠ‚æ¯æ‰‡åŒº
          div ecx
 
          or edx,edx
-         jnz @1                             ;Î´³ý¾¡£¬Òò´Ë½á¹û±ÈÊµ¼ÊÉÈÇøÊýÉÙ1 
-         dec eax                            ;ÒÑ¾­¶ÁÁËÒ»¸öÉÈÇø£¬ÉÈÇø×ÜÊý¼õ1 
+         jnz @1                             ;æœªé™¤å°½ï¼Œå› æ­¤ç»“æžœæ¯”å®žé™…æ‰‡åŒºæ•°å°‘1 
+         dec eax                            ;å·²ç»è¯»äº†ä¸€ä¸ªæ‰‡åŒºï¼Œæ‰‡åŒºæ€»æ•°å‡1 
    @1:
-         or eax,eax                         ;¿¼ÂÇÊµ¼Ê³¤¶È¡Ü512¸ö×Ö½ÚµÄÇé¿ö 
+         or eax,eax                         ;è€ƒè™‘å®žé™…é•¿åº¦â‰¤512ä¸ªå­—èŠ‚çš„æƒ…å†µ 
          jz setup                           ;EAX=0 ?
 
-         ;¶ÁÈ¡Ê£ÓàµÄÉÈÇø
-         mov ecx,eax                        ;32Î»Ä£Ê½ÏÂµÄLOOPÊ¹ÓÃECX
+         ;è¯»å–å‰©ä½™çš„æ‰‡åŒº
+         mov ecx,eax                        ;32ä½æ¨¡å¼ä¸‹çš„LOOPä½¿ç”¨ECX
          mov eax,core_start_sector
-         inc eax                            ;´ÓÏÂÒ»¸öÂß¼­ÉÈÇø½Ó×Å¶Á
+         inc eax                            ;ä»Žä¸‹ä¸€ä¸ªé€»è¾‘æ‰‡åŒºæŽ¥ç€è¯»
    @2:
          call read_hard_disk_0
          inc eax
-         loop @2                            ;Ñ­»·¶Á£¬Ö±µ½¶ÁÍêÕû¸öÄÚºË 
+         loop @2                            ;å¾ªçŽ¯è¯»ï¼Œç›´åˆ°è¯»å®Œæ•´ä¸ªå†…æ ¸ 
 
  setup:
-         mov esi,[0x7c00+pgdt+0x02]         ;²»¿ÉÒÔÔÚ´úÂë¶ÎÄÚÑ°Ö·pgdt£¬µ«¿ÉÒÔ
-                                            ;Í¨¹ý4GBµÄ¶ÎÀ´·ÃÎÊ
-         ;½¨Á¢¹«ÓÃÀý³Ì¶ÎÃèÊö·û
-         mov eax,[edi+0x04]                 ;¹«ÓÃÀý³Ì´úÂë¶ÎÆðÊ¼»ã±àµØÖ·
-         mov ebx,[edi+0x08]                 ;ºËÐÄÊý¾Ý¶Î»ã±àµØÖ·
+         mov esi,[0x7c00+pgdt+0x02]         ;ä¸å¯ä»¥åœ¨ä»£ç æ®µå†…å¯»å€pgdtï¼Œä½†å¯ä»¥
+                                            ;é€šè¿‡4GBçš„æ®µæ¥è®¿é—®
+         ;å»ºç«‹å…¬ç”¨ä¾‹ç¨‹æ®µæè¿°ç¬¦
+         mov eax,[edi+0x04]                 ;å…¬ç”¨ä¾‹ç¨‹ä»£ç æ®µèµ·å§‹æ±‡ç¼–åœ°å€
+         mov ebx,[edi+0x08]                 ;æ ¸å¿ƒæ•°æ®æ®µæ±‡ç¼–åœ°å€
          sub ebx,eax
-         dec ebx                            ;¹«ÓÃÀý³Ì¶Î½çÏÞ 
-         add eax,edi                        ;¹«ÓÃÀý³Ì¶Î»ùµØÖ·
-         mov ecx,0x00409800                 ;×Ö½ÚÁ£¶ÈµÄ´úÂë¶ÎÃèÊö·û
+         dec ebx                            ;å…¬ç”¨ä¾‹ç¨‹æ®µç•Œé™ 
+         add eax,edi                        ;å…¬ç”¨ä¾‹ç¨‹æ®µåŸºåœ°å€
+         mov ecx,0x00409800                 ;å­—èŠ‚ç²’åº¦çš„ä»£ç æ®µæè¿°ç¬¦
          call make_gdt_descriptor
          mov [esi+0x28],eax
          mov [esi+0x2c],edx
        
-         ;½¨Á¢ºËÐÄÊý¾Ý¶ÎÃèÊö·û
-         mov eax,[edi+0x08]                 ;ºËÐÄÊý¾Ý¶ÎÆðÊ¼»ã±àµØÖ·
-         mov ebx,[edi+0x0c]                 ;ºËÐÄ´úÂë¶Î»ã±àµØÖ· 
+         ;å»ºç«‹æ ¸å¿ƒæ•°æ®æ®µæè¿°ç¬¦
+         mov eax,[edi+0x08]                 ;æ ¸å¿ƒæ•°æ®æ®µèµ·å§‹æ±‡ç¼–åœ°å€
+         mov ebx,[edi+0x0c]                 ;æ ¸å¿ƒä»£ç æ®µæ±‡ç¼–åœ°å€ 
          sub ebx,eax
-         dec ebx                            ;ºËÐÄÊý¾Ý¶Î½çÏÞ
-         add eax,edi                        ;ºËÐÄÊý¾Ý¶Î»ùµØÖ·
-         mov ecx,0x00409200                 ;×Ö½ÚÁ£¶ÈµÄÊý¾Ý¶ÎÃèÊö·û 
+         dec ebx                            ;æ ¸å¿ƒæ•°æ®æ®µç•Œé™
+         add eax,edi                        ;æ ¸å¿ƒæ•°æ®æ®µåŸºåœ°å€
+         mov ecx,0x00409200                 ;å­—èŠ‚ç²’åº¦çš„æ•°æ®æ®µæè¿°ç¬¦ 
          call make_gdt_descriptor
          mov [esi+0x30],eax
          mov [esi+0x34],edx 
       
-         ;½¨Á¢ºËÐÄ´úÂë¶ÎÃèÊö·û
-         mov eax,[edi+0x0c]                 ;ºËÐÄ´úÂë¶ÎÆðÊ¼»ã±àµØÖ·
-         mov ebx,[edi+0x00]                 ;³ÌÐò×Ü³¤¶È
+         ;å»ºç«‹æ ¸å¿ƒä»£ç æ®µæè¿°ç¬¦
+         mov eax,[edi+0x0c]                 ;æ ¸å¿ƒä»£ç æ®µèµ·å§‹æ±‡ç¼–åœ°å€
+         mov ebx,[edi+0x00]                 ;ç¨‹åºæ€»é•¿åº¦
          sub ebx,eax
-         dec ebx                            ;ºËÐÄ´úÂë¶Î½çÏÞ
-         add eax,edi                        ;ºËÐÄ´úÂë¶Î»ùµØÖ·
-         mov ecx,0x00409800                 ;×Ö½ÚÁ£¶ÈµÄ´úÂë¶ÎÃèÊö·û
+         dec ebx                            ;æ ¸å¿ƒä»£ç æ®µç•Œé™
+         add eax,edi                        ;æ ¸å¿ƒä»£ç æ®µåŸºåœ°å€
+         mov ecx,0x00409800                 ;å­—èŠ‚ç²’åº¦çš„ä»£ç æ®µæè¿°ç¬¦
          call make_gdt_descriptor
          mov [esi+0x38],eax
          mov [esi+0x3c],edx
 
-         mov word [0x7c00+pgdt],63          ;ÃèÊö·û±íµÄ½çÏÞ
+         mov word [0x7c00+pgdt],63          ;æè¿°ç¬¦è¡¨çš„ç•Œé™
                                         
          lgdt [0x7c00+pgdt]                  
 
          jmp far [edi+0x10]  
        
 ;-------------------------------------------------------------------------------
-read_hard_disk_0:                        ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
-                                         ;EAX=Âß¼­ÉÈÇøºÅ
-                                         ;DS:EBX=Ä¿±ê»º³åÇøµØÖ·
-                                         ;·µ»Ø£ºEBX=EBX+512 
+read_hard_disk_0:                        ;ä»Žç¡¬ç›˜è¯»å–ä¸€ä¸ªé€»è¾‘æ‰‡åŒº
+                                         ;EAX=é€»è¾‘æ‰‡åŒºå·
+                                         ;DS:EBX=ç›®æ ‡ç¼“å†²åŒºåœ°å€
+                                         ;è¿”å›žï¼šEBX=EBX+512 
          push eax 
          push ecx
          push edx
@@ -147,37 +147,37 @@ read_hard_disk_0:                        ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
          
          mov dx,0x1f2
          mov al,1
-         out dx,al                       ;¶ÁÈ¡µÄÉÈÇøÊý
+         out dx,al                       ;è¯»å–çš„æ‰‡åŒºæ•°
 
          inc dx                          ;0x1f3
          pop eax
-         out dx,al                       ;LBAµØÖ·7~0
+         out dx,al                       ;LBAåœ°å€7~0
 
          inc dx                          ;0x1f4
          mov cl,8
          shr eax,cl
-         out dx,al                       ;LBAµØÖ·15~8
+         out dx,al                       ;LBAåœ°å€15~8
 
          inc dx                          ;0x1f5
          shr eax,cl
-         out dx,al                       ;LBAµØÖ·23~16
+         out dx,al                       ;LBAåœ°å€23~16
 
          inc dx                          ;0x1f6
          shr eax,cl
-         or al,0xe0                      ;µÚÒ»Ó²ÅÌ  LBAµØÖ·27~24
+         or al,0xe0                      ;ç¬¬ä¸€ç¡¬ç›˜  LBAåœ°å€27~24
          out dx,al
 
          inc dx                          ;0x1f7
-         mov al,0x20                     ;¶ÁÃüÁî
+         mov al,0x20                     ;è¯»å‘½ä»¤
          out dx,al
 
   .waits:
          in al,dx
          and al,0x88
          cmp al,0x08
-         jnz .waits                      ;²»Ã¦£¬ÇÒÓ²ÅÌÒÑ×¼±¸ºÃÊý¾Ý´«Êä 
+         jnz .waits                      ;ä¸å¿™ï¼Œä¸”ç¡¬ç›˜å·²å‡†å¤‡å¥½æ•°æ®ä¼ è¾“ 
 
-         mov ecx,256                     ;×Ü¹²Òª¶ÁÈ¡µÄ×ÖÊý
+         mov ecx,256                     ;æ€»å…±è¦è¯»å–çš„å­—æ•°
          mov dx,0x1f0
   .readw:
          in ax,dx
@@ -192,30 +192,30 @@ read_hard_disk_0:                        ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
          ret
 
 ;-------------------------------------------------------------------------------
-make_gdt_descriptor:                     ;¹¹ÔìÃèÊö·û
-                                         ;ÊäÈë£ºEAX=ÏßÐÔ»ùµØÖ·
-                                         ;      EBX=¶Î½çÏÞ
-                                         ;      ECX=ÊôÐÔ£¨¸÷ÊôÐÔÎ»¶¼ÔÚÔ­Ê¼
-                                         ;      Î»ÖÃ£¬ÆäËüÃ»ÓÃµ½µÄÎ»ÖÃ0£© 
-                                         ;·µ»Ø£ºEDX:EAX=ÍêÕûµÄÃèÊö·û
+make_gdt_descriptor:                     ;æž„é€ æè¿°ç¬¦
+                                         ;è¾“å…¥ï¼šEAX=çº¿æ€§åŸºåœ°å€
+                                         ;      EBX=æ®µç•Œé™
+                                         ;      ECX=å±žæ€§ï¼ˆå„å±žæ€§ä½éƒ½åœ¨åŽŸå§‹
+                                         ;      ä½ç½®ï¼Œå…¶å®ƒæ²¡ç”¨åˆ°çš„ä½ç½®0ï¼‰ 
+                                         ;è¿”å›žï¼šEDX:EAX=å®Œæ•´çš„æè¿°ç¬¦
          mov edx,eax
          shl eax,16                     
-         or ax,bx                        ;ÃèÊö·ûÇ°32Î»(EAX)¹¹ÔìÍê±Ï
+         or ax,bx                        ;æè¿°ç¬¦å‰32ä½(EAX)æž„é€ å®Œæ¯•
       
-         and edx,0xffff0000              ;Çå³ý»ùµØÖ·ÖÐÎÞ¹ØµÄÎ»
+         and edx,0xffff0000              ;æ¸…é™¤åŸºåœ°å€ä¸­æ— å…³çš„ä½
          rol edx,8
-         bswap edx                       ;×°Åä»ùÖ·µÄ31~24ºÍ23~16  (80486+)
+         bswap edx                       ;è£…é…åŸºå€çš„31~24å’Œ23~16  (80486+)
       
          xor bx,bx
-         or edx,ebx                      ;×°Åä¶Î½çÏÞµÄ¸ß4Î»
+         or edx,ebx                      ;è£…é…æ®µç•Œé™çš„é«˜4ä½
       
-         or edx,ecx                      ;×°ÅäÊôÐÔ 
+         or edx,ecx                      ;è£…é…å±žæ€§ 
       
          ret
       
 ;-------------------------------------------------------------------------------
          pgdt             dw 0
-                          dd 0x00007e00      ;GDTµÄÎïÀíµØÖ·
+                          dd 0x00007e00      ;GDTçš„ç‰©ç†åœ°å€
 ;-------------------------------------------------------------------------------                             
          times 510-($-$$) db 0
                           db 0x55,0xaa

@@ -1,20 +1,20 @@
-         ;�����嵥7-1
-         ;�ļ�����c07_mbr.asm
-         ;�ļ�˵����Ӳ����������������
-         ;�������ڣ�2011-4-13 18:02
+         ;代码清单7-1
+         ;文件名：c07_mbr.asm
+         ;文件说明：硬盘主引导扇区代码
+         ;创建日期：2011-4-13 18:02
          
          jmp near start
 	
  message db '1+2+3+...+100='
         
  start:
-         mov ax,0x7c0           ;�������ݶεĶλ���ַ 
+         mov ax,0x7c0           ;设置数据段的段基地址 
          mov ds,ax
 
-         mov ax,0xb800          ;���ø��Ӷλ�ַ����ʾ������
+         mov ax,0xb800          ;设置附加段基址到显示缓冲区
          mov es,ax
 
-         ;������ʾ�ַ��� 
+         ;以下显示字符串 
          mov si,message          
          mov di,0
          mov cx,start-message
@@ -27,7 +27,7 @@
          inc si
          loop @g
 
-         ;���¼���1��100�ĺ� 
+         ;以下计算1到100的和 
          xor ax,ax
          mov cx,1
      @f:
@@ -36,8 +36,8 @@
          cmp cx,100
          jle @f
 
-         ;���¼����ۼӺ͵�ÿ����λ 
-         xor cx,cx              ;���ö�ջ�εĶλ���ַ
+         ;以下计算累加和的每个数位 
+         xor cx,cx              ;设置堆栈段的段基地址
          mov ss,cx
          mov sp,cx
 
@@ -52,7 +52,7 @@
          cmp ax,0
          jne @d
 
-         ;������ʾ������λ 
+         ;以下显示各个数位 
      @a:
          pop dx
          mov [es:di],dl

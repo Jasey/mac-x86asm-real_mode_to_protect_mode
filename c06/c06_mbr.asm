@@ -1,7 +1,7 @@
-         ;´úÂëÇåµ¥6-1
-         ;ÎÄ¼þÃû£ºc06_mbr.asm
-         ;ÎÄ¼þËµÃ÷£ºÓ²ÅÌÖ÷Òýµ¼ÉÈÇø´úÂë
-         ;´´½¨ÈÕÆÚ£º2011-4-12 22:12 
+         ;ä»£ç æ¸…å•6-1
+         ;æ–‡ä»¶åï¼šc06_mbr.asm
+         ;æ–‡ä»¶è¯´æ˜Žï¼šç¡¬ç›˜ä¸»å¼•å¯¼æ‰‡åŒºä»£ç 
+         ;åˆ›å»ºæ—¥æœŸï¼š2011-4-12 22:12 
       
          jmp near start
          
@@ -10,33 +10,33 @@
   number db 0,0,0,0,0
   
   start:
-         mov ax,0x7c0                  ;ÉèÖÃÊý¾Ý¶Î»ùµØÖ· 
+         mov ax,0x7c0                  ;è®¾ç½®æ•°æ®æ®µåŸºåœ°å€ 
          mov ds,ax
          
-         mov ax,0xb800                 ;ÉèÖÃ¸½¼Ó¶Î»ùµØÖ· 
+         mov ax,0xb800                 ;è®¾ç½®é™„åŠ æ®µåŸºåœ°å€ 
          mov es,ax
          
          cld
          mov si,mytext                 
          mov di,0
-         mov cx,(number-mytext)/2      ;Êµ¼ÊÉÏµÈÓÚ 13
+         mov cx,(number-mytext)/2      ;å®žé™…ä¸Šç­‰äºŽ 13
          rep movsw
      
-         ;µÃµ½±êºÅËù´ú±íµÄÆ«ÒÆµØÖ·
+         ;å¾—åˆ°æ ‡å·æ‰€ä»£è¡¨çš„åç§»åœ°å€
          mov ax,number
          
-         ;¼ÆËã¸÷¸öÊýÎ»
+         ;è®¡ç®—å„ä¸ªæ•°ä½
          mov bx,ax
-         mov cx,5                      ;Ñ­»·´ÎÊý 
-         mov si,10                     ;³ýÊý 
+         mov cx,5                      ;å¾ªçŽ¯æ¬¡æ•° 
+         mov si,10                     ;é™¤æ•° 
   digit: 
          xor dx,dx
          div si
-         mov [bx],dl                   ;±£´æÊýÎ»
+         mov [bx],dl                   ;ä¿å­˜æ•°ä½
          inc bx 
          loop digit
          
-         ;ÏÔÊ¾¸÷¸öÊýÎ»
+         ;æ˜¾ç¤ºå„ä¸ªæ•°ä½
          mov bx,number 
          mov si,4                      
    show:

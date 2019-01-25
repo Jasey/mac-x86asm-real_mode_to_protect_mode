@@ -1,41 +1,41 @@
-         ;´úÂëÇåµ¥13-2
-         ;ÎÄ¼şÃû£ºc13_core.asm
-         ;ÎÄ¼şËµÃ÷£º±£»¤Ä£Ê½Î¢ĞÍºËĞÄ³ÌĞò 
-         ;´´½¨ÈÕÆÚ£º2011-10-26 12:11
+         ;ä»£ç æ¸…å•13-2
+         ;æ–‡ä»¶åï¼šc13_core.asm
+         ;æ–‡ä»¶è¯´æ˜ï¼šä¿æŠ¤æ¨¡å¼å¾®å‹æ ¸å¿ƒç¨‹åº 
+         ;åˆ›å»ºæ—¥æœŸï¼š2011-10-26 12:11
 
-         ;ÒÔÏÂ³£Á¿¶¨Òå²¿·Ö¡£ÄÚºËµÄ´ó²¿·ÖÄÚÈİ¶¼Ó¦µ±¹Ì¶¨ 
-         core_code_seg_sel     equ  0x38    ;ÄÚºË´úÂë¶ÎÑ¡Ôñ×Ó
-         core_data_seg_sel     equ  0x30    ;ÄÚºËÊı¾İ¶ÎÑ¡Ôñ×Ó 
-         sys_routine_seg_sel   equ  0x28    ;ÏµÍ³¹«¹²Àı³Ì´úÂë¶ÎµÄÑ¡Ôñ×Ó 
-         video_ram_seg_sel     equ  0x20    ;ÊÓÆµÏÔÊ¾»º³åÇøµÄ¶ÎÑ¡Ôñ×Ó
-         core_stack_seg_sel    equ  0x18    ;ÄÚºË¶ÑÕ»¶ÎÑ¡Ôñ×Ó
-         mem_0_4_gb_seg_sel    equ  0x08    ;Õû¸ö0-4GBÄÚ´æµÄ¶ÎµÄÑ¡Ôñ×Ó
+         ;ä»¥ä¸‹å¸¸é‡å®šä¹‰éƒ¨åˆ†ã€‚å†…æ ¸çš„å¤§éƒ¨åˆ†å†…å®¹éƒ½åº”å½“å›ºå®š 
+         core_code_seg_sel     equ  0x38    ;å†…æ ¸ä»£ç æ®µé€‰æ‹©å­
+         core_data_seg_sel     equ  0x30    ;å†…æ ¸æ•°æ®æ®µé€‰æ‹©å­ 
+         sys_routine_seg_sel   equ  0x28    ;ç³»ç»Ÿå…¬å…±ä¾‹ç¨‹ä»£ç æ®µçš„é€‰æ‹©å­ 
+         video_ram_seg_sel     equ  0x20    ;è§†é¢‘æ˜¾ç¤ºç¼“å†²åŒºçš„æ®µé€‰æ‹©å­
+         core_stack_seg_sel    equ  0x18    ;å†…æ ¸å †æ ˆæ®µé€‰æ‹©å­
+         mem_0_4_gb_seg_sel    equ  0x08    ;æ•´ä¸ª0-4GBå†…å­˜çš„æ®µçš„é€‰æ‹©å­
 
 ;-------------------------------------------------------------------------------
-         ;ÒÔÏÂÊÇÏµÍ³ºËĞÄµÄÍ·²¿£¬ÓÃÓÚ¼ÓÔØºËĞÄ³ÌĞò 
-         core_length      dd core_end       ;ºËĞÄ³ÌĞò×Ü³¤¶È#00
+         ;ä»¥ä¸‹æ˜¯ç³»ç»Ÿæ ¸å¿ƒçš„å¤´éƒ¨ï¼Œç”¨äºåŠ è½½æ ¸å¿ƒç¨‹åº 
+         core_length      dd core_end       ;æ ¸å¿ƒç¨‹åºæ€»é•¿åº¦#00
 
          sys_routine_seg  dd section.sys_routine.start
-                                            ;ÏµÍ³¹«ÓÃÀı³Ì¶ÎÎ»ÖÃ#04
+                                            ;ç³»ç»Ÿå…¬ç”¨ä¾‹ç¨‹æ®µä½ç½®#04
 
          core_data_seg    dd section.core_data.start
-                                            ;ºËĞÄÊı¾İ¶ÎÎ»ÖÃ#08
+                                            ;æ ¸å¿ƒæ•°æ®æ®µä½ç½®#08
 
          core_code_seg    dd section.core_code.start
-                                            ;ºËĞÄ´úÂë¶ÎÎ»ÖÃ#0c
+                                            ;æ ¸å¿ƒä»£ç æ®µä½ç½®#0c
 
 
-         core_entry       dd start          ;ºËĞÄ´úÂë¶ÎÈë¿Úµã#10
+         core_entry       dd start          ;æ ¸å¿ƒä»£ç æ®µå…¥å£ç‚¹#10
                           dw core_code_seg_sel
 
 ;===============================================================================
          [bits 32]
 ;===============================================================================
-SECTION sys_routine vstart=0                ;ÏµÍ³¹«¹²Àı³Ì´úÂë¶Î 
+SECTION sys_routine vstart=0                ;ç³»ç»Ÿå…¬å…±ä¾‹ç¨‹ä»£ç æ®µ 
 ;-------------------------------------------------------------------------------
-         ;×Ö·û´®ÏÔÊ¾Àı³Ì
-put_string:                                 ;ÏÔÊ¾0ÖÕÖ¹µÄ×Ö·û´®²¢ÒÆ¶¯¹â±ê 
-                                            ;ÊäÈë£ºDS:EBX=´®µØÖ·
+         ;å­—ç¬¦ä¸²æ˜¾ç¤ºä¾‹ç¨‹
+put_string:                                 ;æ˜¾ç¤º0ç»ˆæ­¢çš„å­—ç¬¦ä¸²å¹¶ç§»åŠ¨å…‰æ ‡ 
+                                            ;è¾“å…¥ï¼šDS:EBX=ä¸²åœ°å€
          push ecx
   .getc:
          mov cl,[ebx]
@@ -47,30 +47,30 @@ put_string:                                 ;ÏÔÊ¾0ÖÕÖ¹µÄ×Ö·û´®²¢ÒÆ¶¯¹â±ê
 
   .exit:
          pop ecx
-         retf                               ;¶Î¼ä·µ»Ø
+         retf                               ;æ®µé—´è¿”å›
 
 ;-------------------------------------------------------------------------------
-put_char:                                   ;ÔÚµ±Ç°¹â±ê´¦ÏÔÊ¾Ò»¸ö×Ö·û,²¢ÍÆ½ø
-                                            ;¹â±ê¡£½öÓÃÓÚ¶ÎÄÚµ÷ÓÃ 
-                                            ;ÊäÈë£ºCL=×Ö·ûASCIIÂë 
+put_char:                                   ;åœ¨å½“å‰å…‰æ ‡å¤„æ˜¾ç¤ºä¸€ä¸ªå­—ç¬¦,å¹¶æ¨è¿›
+                                            ;å…‰æ ‡ã€‚ä»…ç”¨äºæ®µå†…è°ƒç”¨ 
+                                            ;è¾“å…¥ï¼šCL=å­—ç¬¦ASCIIç  
          pushad
 
-         ;ÒÔÏÂÈ¡µ±Ç°¹â±êÎ»ÖÃ
+         ;ä»¥ä¸‹å–å½“å‰å…‰æ ‡ä½ç½®
          mov dx,0x3d4
          mov al,0x0e
          out dx,al
          inc dx                             ;0x3d5
-         in al,dx                           ;¸ß×Ö
+         in al,dx                           ;é«˜å­—
          mov ah,al
 
          dec dx                             ;0x3d4
          mov al,0x0f
          out dx,al
          inc dx                             ;0x3d5
-         in al,dx                           ;µÍ×Ö
-         mov bx,ax                          ;BX=´ú±í¹â±êÎ»ÖÃµÄ16Î»Êı
+         in al,dx                           ;ä½å­—
+         mov bx,ax                          ;BX=ä»£è¡¨å…‰æ ‡ä½ç½®çš„16ä½æ•°
 
-         cmp cl,0x0d                        ;»Ø³µ·û£¿
+         cmp cl,0x0d                        ;å›è½¦ç¬¦ï¼Ÿ
          jnz .put_0a
          mov ax,bx
          mov bl,80
@@ -80,25 +80,25 @@ put_char:                                   ;ÔÚµ±Ç°¹â±ê´¦ÏÔÊ¾Ò»¸ö×Ö·û,²¢ÍÆ½ø
          jmp .set_cursor
 
   .put_0a:
-         cmp cl,0x0a                        ;»»ĞĞ·û£¿
+         cmp cl,0x0a                        ;æ¢è¡Œç¬¦ï¼Ÿ
          jnz .put_other
          add bx,80
          jmp .roll_screen
 
-  .put_other:                               ;Õı³£ÏÔÊ¾×Ö·û
+  .put_other:                               ;æ­£å¸¸æ˜¾ç¤ºå­—ç¬¦
          push es
-         mov eax,video_ram_seg_sel          ;0xb8000¶ÎµÄÑ¡Ôñ×Ó
+         mov eax,video_ram_seg_sel          ;0xb8000æ®µçš„é€‰æ‹©å­
          mov es,eax
          shl bx,1
          mov [es:bx],cl
          pop es
 
-         ;ÒÔÏÂ½«¹â±êÎ»ÖÃÍÆ½øÒ»¸ö×Ö·û
+         ;ä»¥ä¸‹å°†å…‰æ ‡ä½ç½®æ¨è¿›ä¸€ä¸ªå­—ç¬¦
          shr bx,1
          inc bx
 
   .roll_screen:
-         cmp bx,2000                        ;¹â±ê³¬³öÆÁÄ»£¿¹öÆÁ
+         cmp bx,2000                        ;å…‰æ ‡è¶…å‡ºå±å¹•ï¼Ÿæ»šå±
          jl .set_cursor
 
          push ds
@@ -107,12 +107,12 @@ put_char:                                   ;ÔÚµ±Ç°¹â±ê´¦ÏÔÊ¾Ò»¸ö×Ö·û,²¢ÍÆ½ø
          mov ds,eax
          mov es,eax
          cld
-         mov esi,0xa0                       ;Ğ¡ĞÄ£¡32Î»Ä£Ê½ÏÂmovsb/w/d 
-         mov edi,0x00                       ;Ê¹ÓÃµÄÊÇesi/edi/ecx 
+         mov esi,0xa0                       ;å°å¿ƒï¼32ä½æ¨¡å¼ä¸‹movsb/w/d 
+         mov edi,0x00                       ;ä½¿ç”¨çš„æ˜¯esi/edi/ecx 
          mov ecx,1920
          rep movsd
-         mov bx,3840                        ;Çå³ıÆÁÄ»×îµ×Ò»ĞĞ
-         mov ecx,80                         ;32Î»³ÌĞòÓ¦¸ÃÊ¹ÓÃECX
+         mov bx,3840                        ;æ¸…é™¤å±å¹•æœ€åº•ä¸€è¡Œ
+         mov ecx,80                         ;32ä½ç¨‹åºåº”è¯¥ä½¿ç”¨ECX
   .cls:
          mov word[es:bx],0x0720
          add bx,2
@@ -141,10 +141,10 @@ put_char:                                   ;ÔÚµ±Ç°¹â±ê´¦ÏÔÊ¾Ò»¸ö×Ö·û,²¢ÍÆ½ø
          ret                                
 
 ;-------------------------------------------------------------------------------
-read_hard_disk_0:                           ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
-                                            ;EAX=Âß¼­ÉÈÇøºÅ
-                                            ;DS:EBX=Ä¿±ê»º³åÇøµØÖ·
-                                            ;·µ»Ø£ºEBX=EBX+512
+read_hard_disk_0:                           ;ä»ç¡¬ç›˜è¯»å–ä¸€ä¸ªé€»è¾‘æ‰‡åŒº
+                                            ;EAX=é€»è¾‘æ‰‡åŒºå·
+                                            ;DS:EBX=ç›®æ ‡ç¼“å†²åŒºåœ°å€
+                                            ;è¿”å›ï¼šEBX=EBX+512
          push eax 
          push ecx
          push edx
@@ -153,37 +153,37 @@ read_hard_disk_0:                           ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
          
          mov dx,0x1f2
          mov al,1
-         out dx,al                          ;¶ÁÈ¡µÄÉÈÇøÊı
+         out dx,al                          ;è¯»å–çš„æ‰‡åŒºæ•°
 
          inc dx                             ;0x1f3
          pop eax
-         out dx,al                          ;LBAµØÖ·7~0
+         out dx,al                          ;LBAåœ°å€7~0
 
          inc dx                             ;0x1f4
          mov cl,8
          shr eax,cl
-         out dx,al                          ;LBAµØÖ·15~8
+         out dx,al                          ;LBAåœ°å€15~8
 
          inc dx                             ;0x1f5
          shr eax,cl
-         out dx,al                          ;LBAµØÖ·23~16
+         out dx,al                          ;LBAåœ°å€23~16
 
          inc dx                             ;0x1f6
          shr eax,cl
-         or al,0xe0                         ;µÚÒ»Ó²ÅÌ  LBAµØÖ·27~24
+         or al,0xe0                         ;ç¬¬ä¸€ç¡¬ç›˜  LBAåœ°å€27~24
          out dx,al
 
          inc dx                             ;0x1f7
-         mov al,0x20                        ;¶ÁÃüÁî
+         mov al,0x20                        ;è¯»å‘½ä»¤
          out dx,al
 
   .waits:
          in al,dx
          and al,0x88
          cmp al,0x08
-         jnz .waits                         ;²»Ã¦£¬ÇÒÓ²ÅÌÒÑ×¼±¸ºÃÊı¾İ´«Êä 
+         jnz .waits                         ;ä¸å¿™ï¼Œä¸”ç¡¬ç›˜å·²å‡†å¤‡å¥½æ•°æ®ä¼ è¾“ 
 
-         mov ecx,256                        ;×Ü¹²Òª¶ÁÈ¡µÄ×ÖÊı
+         mov ecx,256                        ;æ€»å…±è¦è¯»å–çš„å­—æ•°
          mov dx,0x1f0
   .readw:
          in ax,dx
@@ -195,21 +195,21 @@ read_hard_disk_0:                           ;´ÓÓ²ÅÌ¶ÁÈ¡Ò»¸öÂß¼­ÉÈÇø
          pop ecx
          pop eax
       
-         retf                               ;¶Î¼ä·µ»Ø 
+         retf                               ;æ®µé—´è¿”å› 
 
 ;-------------------------------------------------------------------------------
-;»ã±àÓïÑÔ³ÌĞòÊÇ¼«ÄÑÒ»´Î³É¹¦£¬¶øÇÒµ÷ÊÔ·Ç³£À§ÄÑ¡£Õâ¸öÀı³Ì¿ÉÒÔÌá¹©°ïÖú 
-put_hex_dword:                              ;ÔÚµ±Ç°¹â±ê´¦ÒÔÊ®Áù½øÖÆĞÎÊ½ÏÔÊ¾
-                                            ;Ò»¸öË«×Ö²¢ÍÆ½ø¹â±ê 
-                                            ;ÊäÈë£ºEDX=Òª×ª»»²¢ÏÔÊ¾µÄÊı×Ö
-                                            ;Êä³ö£ºÎŞ
+;æ±‡ç¼–è¯­è¨€ç¨‹åºæ˜¯æéš¾ä¸€æ¬¡æˆåŠŸï¼Œè€Œä¸”è°ƒè¯•éå¸¸å›°éš¾ã€‚è¿™ä¸ªä¾‹ç¨‹å¯ä»¥æä¾›å¸®åŠ© 
+put_hex_dword:                              ;åœ¨å½“å‰å…‰æ ‡å¤„ä»¥åå…­è¿›åˆ¶å½¢å¼æ˜¾ç¤º
+                                            ;ä¸€ä¸ªåŒå­—å¹¶æ¨è¿›å…‰æ ‡ 
+                                            ;è¾“å…¥ï¼šEDX=è¦è½¬æ¢å¹¶æ˜¾ç¤ºçš„æ•°å­—
+                                            ;è¾“å‡ºï¼šæ— 
          pushad
          push ds
       
-         mov ax,core_data_seg_sel           ;ÇĞ»»µ½ºËĞÄÊı¾İ¶Î 
+         mov ax,core_data_seg_sel           ;åˆ‡æ¢åˆ°æ ¸å¿ƒæ•°æ®æ®µ 
          mov ds,ax
       
-         mov ebx,bin_hex                    ;Ö¸ÏòºËĞÄÊı¾İ¶ÎÄÚµÄ×ª»»±í
+         mov ebx,bin_hex                    ;æŒ‡å‘æ ¸å¿ƒæ•°æ®æ®µå†…çš„è½¬æ¢è¡¨
          mov ecx,8
   .xlt:    
          rol edx,4
@@ -229,9 +229,9 @@ put_hex_dword:                              ;ÔÚµ±Ç°¹â±ê´¦ÒÔÊ®Áù½øÖÆĞÎÊ½ÏÔÊ¾
          retf
       
 ;-------------------------------------------------------------------------------
-allocate_memory:                            ;·ÖÅäÄÚ´æ
-                                            ;ÊäÈë£ºECX=Ï£Íû·ÖÅäµÄ×Ö½ÚÊı
-                                            ;Êä³ö£ºECX=ÆğÊ¼ÏßĞÔµØÖ· 
+allocate_memory:                            ;åˆ†é…å†…å­˜
+                                            ;è¾“å…¥ï¼šECX=å¸Œæœ›åˆ†é…çš„å­—èŠ‚æ•°
+                                            ;è¾“å‡ºï¼šECX=èµ·å§‹çº¿æ€§åœ°å€ 
          push ds
          push eax
          push ebx
@@ -240,19 +240,19 @@ allocate_memory:                            ;·ÖÅäÄÚ´æ
          mov ds,eax
       
          mov eax,[ram_alloc]
-         add eax,ecx                        ;ÏÂÒ»´Î·ÖÅäÊ±µÄÆğÊ¼µØÖ·
+         add eax,ecx                        ;ä¸‹ä¸€æ¬¡åˆ†é…æ—¶çš„èµ·å§‹åœ°å€
       
-         ;ÕâÀïÓ¦µ±ÓĞ¼ì²â¿ÉÓÃÄÚ´æÊıÁ¿µÄÖ¸Áî
+         ;è¿™é‡Œåº”å½“æœ‰æ£€æµ‹å¯ç”¨å†…å­˜æ•°é‡çš„æŒ‡ä»¤
           
-         mov ecx,[ram_alloc]                ;·µ»Ø·ÖÅäµÄÆğÊ¼µØÖ·
+         mov ecx,[ram_alloc]                ;è¿”å›åˆ†é…çš„èµ·å§‹åœ°å€
 
          mov ebx,eax
          and ebx,0xfffffffc
-         add ebx,4                          ;Ç¿ÖÆ¶ÔÆë 
-         test eax,0x00000003                ;ÏÂ´Î·ÖÅäµÄÆğÊ¼µØÖ·×îºÃÊÇ4×Ö½Ú¶ÔÆë
-         cmovnz eax,ebx                     ;Èç¹ûÃ»ÓĞ¶ÔÆë£¬ÔòÇ¿ÖÆ¶ÔÆë 
-         mov [ram_alloc],eax                ;ÏÂ´Î´Ó¸ÃµØÖ··ÖÅäÄÚ´æ
-                                            ;cmovccÖ¸Áî¿ÉÒÔ±ÜÃâ¿ØÖÆ×ªÒÆ 
+         add ebx,4                          ;å¼ºåˆ¶å¯¹é½ 
+         test eax,0x00000003                ;ä¸‹æ¬¡åˆ†é…çš„èµ·å§‹åœ°å€æœ€å¥½æ˜¯4å­—èŠ‚å¯¹é½
+         cmovnz eax,ebx                     ;å¦‚æœæ²¡æœ‰å¯¹é½ï¼Œåˆ™å¼ºåˆ¶å¯¹é½ 
+         mov [ram_alloc],eax                ;ä¸‹æ¬¡ä»è¯¥åœ°å€åˆ†é…å†…å­˜
+                                            ;cmovccæŒ‡ä»¤å¯ä»¥é¿å…æ§åˆ¶è½¬ç§» 
          pop ebx
          pop eax
          pop ds
@@ -260,9 +260,9 @@ allocate_memory:                            ;·ÖÅäÄÚ´æ
          retf
 
 ;-------------------------------------------------------------------------------
-set_up_gdt_descriptor:                      ;ÔÚGDTÄÚ°²×°Ò»¸öĞÂµÄÃèÊö·û
-                                            ;ÊäÈë£ºEDX:EAX=ÃèÊö·û 
-                                            ;Êä³ö£ºCX=ÃèÊö·ûµÄÑ¡Ôñ×Ó
+set_up_gdt_descriptor:                      ;åœ¨GDTå†…å®‰è£…ä¸€ä¸ªæ–°çš„æè¿°ç¬¦
+                                            ;è¾“å…¥ï¼šEDX:EAX=æè¿°ç¬¦ 
+                                            ;è¾“å‡ºï¼šCX=æè¿°ç¬¦çš„é€‰æ‹©å­
          push eax
          push ebx
          push edx
@@ -270,31 +270,31 @@ set_up_gdt_descriptor:                      ;ÔÚGDTÄÚ°²×°Ò»¸öĞÂµÄÃèÊö·û
          push ds
          push es
       
-         mov ebx,core_data_seg_sel          ;ÇĞ»»µ½ºËĞÄÊı¾İ¶Î
+         mov ebx,core_data_seg_sel          ;åˆ‡æ¢åˆ°æ ¸å¿ƒæ•°æ®æ®µ
          mov ds,ebx
 
-         sgdt [pgdt]                        ;ÒÔ±ã¿ªÊ¼´¦ÀíGDT
+         sgdt [pgdt]                        ;ä»¥ä¾¿å¼€å§‹å¤„ç†GDT
 
          mov ebx,mem_0_4_gb_seg_sel
          mov es,ebx
 
-         movzx ebx,word [pgdt]              ;GDT½çÏŞ 
-         inc bx                             ;GDT×Ü×Ö½ÚÊı£¬Ò²ÊÇÏÂÒ»¸öÃèÊö·ûÆ«ÒÆ 
-         add ebx,[pgdt+2]                   ;ÏÂÒ»¸öÃèÊö·ûµÄÏßĞÔµØÖ· 
+         movzx ebx,word [pgdt]              ;GDTç•Œé™ 
+         inc bx                             ;GDTæ€»å­—èŠ‚æ•°ï¼Œä¹Ÿæ˜¯ä¸‹ä¸€ä¸ªæè¿°ç¬¦åç§» 
+         add ebx,[pgdt+2]                   ;ä¸‹ä¸€ä¸ªæè¿°ç¬¦çš„çº¿æ€§åœ°å€ 
       
          mov [es:ebx],eax
          mov [es:ebx+4],edx
       
-         add word [pgdt],8                  ;Ôö¼ÓÒ»¸öÃèÊö·ûµÄ´óĞ¡   
+         add word [pgdt],8                  ;å¢åŠ ä¸€ä¸ªæè¿°ç¬¦çš„å¤§å°   
       
-         lgdt [pgdt]                        ;¶ÔGDTµÄ¸ü¸ÄÉúĞ§ 
+         lgdt [pgdt]                        ;å¯¹GDTçš„æ›´æ”¹ç”Ÿæ•ˆ 
        
-         mov ax,[pgdt]                      ;µÃµ½GDT½çÏŞÖµ
+         mov ax,[pgdt]                      ;å¾—åˆ°GDTç•Œé™å€¼
          xor dx,dx
          mov bx,8
-         div bx                             ;³ıÒÔ8£¬È¥µôÓàÊı
+         div bx                             ;é™¤ä»¥8ï¼Œå»æ‰ä½™æ•°
          mov cx,ax                          
-         shl cx,3                           ;½«Ë÷ÒıºÅÒÆµ½ÕıÈ·Î»ÖÃ 
+         shl cx,3                           ;å°†ç´¢å¼•å·ç§»åˆ°æ­£ç¡®ä½ç½® 
 
          pop es
          pop ds
@@ -305,36 +305,36 @@ set_up_gdt_descriptor:                      ;ÔÚGDTÄÚ°²×°Ò»¸öĞÂµÄÃèÊö·û
       
          retf 
 ;-------------------------------------------------------------------------------
-make_seg_descriptor:                        ;¹¹Ôì´æ´¢Æ÷ºÍÏµÍ³µÄ¶ÎÃèÊö·û
-                                            ;ÊäÈë£ºEAX=ÏßĞÔ»ùµØÖ·
-                                            ;      EBX=¶Î½çÏŞ
-                                            ;      ECX=ÊôĞÔ¡£¸÷ÊôĞÔÎ»¶¼ÔÚÔ­Ê¼
-                                            ;          Î»ÖÃ£¬ÎŞ¹ØµÄÎ»ÇåÁã 
-                                            ;·µ»Ø£ºEDX:EAX=ÃèÊö·û
+make_seg_descriptor:                        ;æ„é€ å­˜å‚¨å™¨å’Œç³»ç»Ÿçš„æ®µæè¿°ç¬¦
+                                            ;è¾“å…¥ï¼šEAX=çº¿æ€§åŸºåœ°å€
+                                            ;      EBX=æ®µç•Œé™
+                                            ;      ECX=å±æ€§ã€‚å„å±æ€§ä½éƒ½åœ¨åŸå§‹
+                                            ;          ä½ç½®ï¼Œæ— å…³çš„ä½æ¸…é›¶ 
+                                            ;è¿”å›ï¼šEDX:EAX=æè¿°ç¬¦
          mov edx,eax
          shl eax,16
-         or ax,bx                           ;ÃèÊö·ûÇ°32Î»(EAX)¹¹ÔìÍê±Ï
+         or ax,bx                           ;æè¿°ç¬¦å‰32ä½(EAX)æ„é€ å®Œæ¯•
 
-         and edx,0xffff0000                 ;Çå³ı»ùµØÖ·ÖĞÎŞ¹ØµÄÎ»
+         and edx,0xffff0000                 ;æ¸…é™¤åŸºåœ°å€ä¸­æ— å…³çš„ä½
          rol edx,8
-         bswap edx                          ;×°Åä»ùÖ·µÄ31~24ºÍ23~16  (80486+)
+         bswap edx                          ;è£…é…åŸºå€çš„31~24å’Œ23~16  (80486+)
 
          xor bx,bx
-         or edx,ebx                         ;×°Åä¶Î½çÏŞµÄ¸ß4Î»
+         or edx,ebx                         ;è£…é…æ®µç•Œé™çš„é«˜4ä½
 
-         or edx,ecx                         ;×°ÅäÊôĞÔ
+         or edx,ecx                         ;è£…é…å±æ€§
 
          retf
 
 ;===============================================================================
-SECTION core_data vstart=0                  ;ÏµÍ³ºËĞÄµÄÊı¾İ¶Î
+SECTION core_data vstart=0                  ;ç³»ç»Ÿæ ¸å¿ƒçš„æ•°æ®æ®µ
 ;-------------------------------------------------------------------------------
-         pgdt             dw  0             ;ÓÃÓÚÉèÖÃºÍĞŞ¸ÄGDT 
+         pgdt             dw  0             ;ç”¨äºè®¾ç½®å’Œä¿®æ”¹GDT 
                           dd  0
 
-         ram_alloc        dd  0x00100000    ;ÏÂ´Î·ÖÅäÄÚ´æÊ±µÄÆğÊ¼µØÖ·
+         ram_alloc        dd  0x00100000    ;ä¸‹æ¬¡åˆ†é…å†…å­˜æ—¶çš„èµ·å§‹åœ°å€
 
-         ;·ûºÅµØÖ·¼ìË÷±í
+         ;ç¬¦å·åœ°å€æ£€ç´¢è¡¨
          salt:
          salt_1           db  '@PrintString'
                      times 256-($-salt_1) db 0
@@ -372,10 +372,10 @@ SECTION core_data vstart=0                  ;ÏµÍ³ºËĞÄµÄÊı¾İ¶Î
                           db  '  User program terminated,control returned.',0
 
          bin_hex          db '0123456789ABCDEF'
-                                            ;put_hex_dword×Ó¹ı³ÌÓÃµÄ²éÕÒ±í 
-         core_buf   times 2048 db 0         ;ÄÚºËÓÃµÄ»º³åÇø
+                                            ;put_hex_dwordå­è¿‡ç¨‹ç”¨çš„æŸ¥æ‰¾è¡¨ 
+         core_buf   times 2048 db 0         ;å†…æ ¸ç”¨çš„ç¼“å†²åŒº
 
-         esp_pointer      dd 0              ;ÄÚºËÓÃÀ´ÁÙÊ±±£´æ×Ô¼ºµÄÕ»Ö¸Õë     
+         esp_pointer      dd 0              ;å†…æ ¸ç”¨æ¥ä¸´æ—¶ä¿å­˜è‡ªå·±çš„æ ˆæŒ‡é’ˆ     
 
          cpu_brnd0        db 0x0d,0x0a,'  ',0
          cpu_brand  times 52 db 0
@@ -384,9 +384,9 @@ SECTION core_data vstart=0                  ;ÏµÍ³ºËĞÄµÄÊı¾İ¶Î
 ;===============================================================================
 SECTION core_code vstart=0
 ;-------------------------------------------------------------------------------
-load_relocate_program:                      ;¼ÓÔØ²¢ÖØ¶¨Î»ÓÃ»§³ÌĞò
-                                            ;ÊäÈë£ºESI=ÆğÊ¼Âß¼­ÉÈÇøºÅ
-                                            ;·µ»Ø£ºAX=Ö¸ÏòÓÃ»§³ÌĞòÍ·²¿µÄÑ¡Ôñ×Ó 
+load_relocate_program:                      ;åŠ è½½å¹¶é‡å®šä½ç”¨æˆ·ç¨‹åº
+                                            ;è¾“å…¥ï¼šESI=èµ·å§‹é€»è¾‘æ‰‡åŒºå·
+                                            ;è¿”å›ï¼šAX=æŒ‡å‘ç”¨æˆ·ç¨‹åºå¤´éƒ¨çš„é€‰æ‹©å­ 
          push ebx
          push ecx
          push edx
@@ -397,92 +397,92 @@ load_relocate_program:                      ;¼ÓÔØ²¢ÖØ¶¨Î»ÓÃ»§³ÌĞò
          push es
       
          mov eax,core_data_seg_sel
-         mov ds,eax                         ;ÇĞ»»DSµ½ÄÚºËÊı¾İ¶Î
+         mov ds,eax                         ;åˆ‡æ¢DSåˆ°å†…æ ¸æ•°æ®æ®µ
        
-         mov eax,esi                        ;¶ÁÈ¡³ÌĞòÍ·²¿Êı¾İ 
+         mov eax,esi                        ;è¯»å–ç¨‹åºå¤´éƒ¨æ•°æ® 
          mov ebx,core_buf                        
          call sys_routine_seg_sel:read_hard_disk_0
 
-         ;ÒÔÏÂÅĞ¶ÏÕû¸ö³ÌĞòÓĞ¶à´ó
-         mov eax,[core_buf]                 ;³ÌĞò³ß´ç
+         ;ä»¥ä¸‹åˆ¤æ–­æ•´ä¸ªç¨‹åºæœ‰å¤šå¤§
+         mov eax,[core_buf]                 ;ç¨‹åºå°ºå¯¸
          mov ebx,eax
-         and ebx,0xfffffe00                 ;Ê¹Ö®512×Ö½Ú¶ÔÆë£¨ÄÜ±»512Õû³ıµÄÊı£¬ 
-         add ebx,512                        ;µÍ9Î»¶¼Îª0 
-         test eax,0x000001ff                ;³ÌĞòµÄ´óĞ¡ÕıºÃÊÇ512µÄ±¶ÊıÂğ? 
-         cmovnz eax,ebx                     ;²»ÊÇ¡£Ê¹ÓÃ´ÕÕûµÄ½á¹û 
+         and ebx,0xfffffe00                 ;ä½¿ä¹‹512å­—èŠ‚å¯¹é½ï¼ˆèƒ½è¢«512æ•´é™¤çš„æ•°ï¼Œ 
+         add ebx,512                        ;ä½9ä½éƒ½ä¸º0 
+         test eax,0x000001ff                ;ç¨‹åºçš„å¤§å°æ­£å¥½æ˜¯512çš„å€æ•°å—? 
+         cmovnz eax,ebx                     ;ä¸æ˜¯ã€‚ä½¿ç”¨å‡‘æ•´çš„ç»“æœ 
       
-         mov ecx,eax                        ;Êµ¼ÊĞèÒªÉêÇëµÄÄÚ´æÊıÁ¿
+         mov ecx,eax                        ;å®é™…éœ€è¦ç”³è¯·çš„å†…å­˜æ•°é‡
          call sys_routine_seg_sel:allocate_memory
-         mov ebx,ecx                        ;ebx -> ÉêÇëµ½µÄÄÚ´æÊ×µØÖ·
-         push ebx                           ;±£´æ¸ÃÊ×µØÖ· 
+         mov ebx,ecx                        ;ebx -> ç”³è¯·åˆ°çš„å†…å­˜é¦–åœ°å€
+         push ebx                           ;ä¿å­˜è¯¥é¦–åœ°å€ 
          xor edx,edx
          mov ecx,512
          div ecx
-         mov ecx,eax                        ;×ÜÉÈÇøÊı 
+         mov ecx,eax                        ;æ€»æ‰‡åŒºæ•° 
       
-         mov eax,mem_0_4_gb_seg_sel         ;ÇĞ»»DSµ½0-4GBµÄ¶Î
+         mov eax,mem_0_4_gb_seg_sel         ;åˆ‡æ¢DSåˆ°0-4GBçš„æ®µ
          mov ds,eax
 
-         mov eax,esi                        ;ÆğÊ¼ÉÈÇøºÅ 
+         mov eax,esi                        ;èµ·å§‹æ‰‡åŒºå· 
   .b1:
          call sys_routine_seg_sel:read_hard_disk_0
          inc eax
-         loop .b1                           ;Ñ­»·¶Á£¬Ö±µ½¶ÁÍêÕû¸öÓÃ»§³ÌĞò
+         loop .b1                           ;å¾ªç¯è¯»ï¼Œç›´åˆ°è¯»å®Œæ•´ä¸ªç”¨æˆ·ç¨‹åº
 
-         ;½¨Á¢³ÌĞòÍ·²¿¶ÎÃèÊö·û
-         pop edi                            ;»Ö¸´³ÌĞò×°ÔØµÄÊ×µØÖ· 
-         mov eax,edi                        ;³ÌĞòÍ·²¿ÆğÊ¼ÏßĞÔµØÖ·
-         mov ebx,[edi+0x04]                 ;¶Î³¤¶È
-         dec ebx                            ;¶Î½çÏŞ 
-         mov ecx,0x00409200                 ;×Ö½ÚÁ£¶ÈµÄÊı¾İ¶ÎÃèÊö·û
+         ;å»ºç«‹ç¨‹åºå¤´éƒ¨æ®µæè¿°ç¬¦
+         pop edi                            ;æ¢å¤ç¨‹åºè£…è½½çš„é¦–åœ°å€ 
+         mov eax,edi                        ;ç¨‹åºå¤´éƒ¨èµ·å§‹çº¿æ€§åœ°å€
+         mov ebx,[edi+0x04]                 ;æ®µé•¿åº¦
+         dec ebx                            ;æ®µç•Œé™ 
+         mov ecx,0x00409200                 ;å­—èŠ‚ç²’åº¦çš„æ•°æ®æ®µæè¿°ç¬¦
          call sys_routine_seg_sel:make_seg_descriptor
          call sys_routine_seg_sel:set_up_gdt_descriptor
          mov [edi+0x04],cx                   
 
-         ;½¨Á¢³ÌĞò´úÂë¶ÎÃèÊö·û
+         ;å»ºç«‹ç¨‹åºä»£ç æ®µæè¿°ç¬¦
          mov eax,edi
-         add eax,[edi+0x14]                 ;´úÂëÆğÊ¼ÏßĞÔµØÖ·
-         mov ebx,[edi+0x18]                 ;¶Î³¤¶È
-         dec ebx                            ;¶Î½çÏŞ
-         mov ecx,0x00409800                 ;×Ö½ÚÁ£¶ÈµÄ´úÂë¶ÎÃèÊö·û
+         add eax,[edi+0x14]                 ;ä»£ç èµ·å§‹çº¿æ€§åœ°å€
+         mov ebx,[edi+0x18]                 ;æ®µé•¿åº¦
+         dec ebx                            ;æ®µç•Œé™
+         mov ecx,0x00409800                 ;å­—èŠ‚ç²’åº¦çš„ä»£ç æ®µæè¿°ç¬¦
          call sys_routine_seg_sel:make_seg_descriptor
          call sys_routine_seg_sel:set_up_gdt_descriptor
          mov [edi+0x14],cx
 
-         ;½¨Á¢³ÌĞòÊı¾İ¶ÎÃèÊö·û
+         ;å»ºç«‹ç¨‹åºæ•°æ®æ®µæè¿°ç¬¦
          mov eax,edi
-         add eax,[edi+0x1c]                 ;Êı¾İ¶ÎÆğÊ¼ÏßĞÔµØÖ·
-         mov ebx,[edi+0x20]                 ;¶Î³¤¶È
-         dec ebx                            ;¶Î½çÏŞ
-         mov ecx,0x00409200                 ;×Ö½ÚÁ£¶ÈµÄÊı¾İ¶ÎÃèÊö·û
+         add eax,[edi+0x1c]                 ;æ•°æ®æ®µèµ·å§‹çº¿æ€§åœ°å€
+         mov ebx,[edi+0x20]                 ;æ®µé•¿åº¦
+         dec ebx                            ;æ®µç•Œé™
+         mov ecx,0x00409200                 ;å­—èŠ‚ç²’åº¦çš„æ•°æ®æ®µæè¿°ç¬¦
          call sys_routine_seg_sel:make_seg_descriptor
          call sys_routine_seg_sel:set_up_gdt_descriptor
          mov [edi+0x1c],cx
 
-         ;½¨Á¢³ÌĞò¶ÑÕ»¶ÎÃèÊö·û
-         mov ecx,[edi+0x0c]                 ;4KBµÄ±¶ÂÊ 
+         ;å»ºç«‹ç¨‹åºå †æ ˆæ®µæè¿°ç¬¦
+         mov ecx,[edi+0x0c]                 ;4KBçš„å€ç‡ 
          mov ebx,0x000fffff
-         sub ebx,ecx                        ;µÃµ½¶Î½çÏŞ
+         sub ebx,ecx                        ;å¾—åˆ°æ®µç•Œé™
          mov eax,4096                        
          mul dword [edi+0x0c]                         
-         mov ecx,eax                        ;×¼±¸Îª¶ÑÕ»·ÖÅäÄÚ´æ 
+         mov ecx,eax                        ;å‡†å¤‡ä¸ºå †æ ˆåˆ†é…å†…å­˜ 
          call sys_routine_seg_sel:allocate_memory
-         add eax,ecx                        ;µÃµ½¶ÑÕ»µÄ¸ß¶ËÎïÀíµØÖ· 
-         mov ecx,0x00c09600                 ;4KBÁ£¶ÈµÄ¶ÑÕ»¶ÎÃèÊö·û
+         add eax,ecx                        ;å¾—åˆ°å †æ ˆçš„é«˜ç«¯ç‰©ç†åœ°å€ 
+         mov ecx,0x00c09600                 ;4KBç²’åº¦çš„å †æ ˆæ®µæè¿°ç¬¦
          call sys_routine_seg_sel:make_seg_descriptor
          call sys_routine_seg_sel:set_up_gdt_descriptor
          mov [edi+0x08],cx
 
-         ;ÖØ¶¨Î»SALT
+         ;é‡å®šä½SALT
          mov eax,[edi+0x04]
-         mov es,eax                         ;es -> ÓÃ»§³ÌĞòÍ·²¿ 
+         mov es,eax                         ;es -> ç”¨æˆ·ç¨‹åºå¤´éƒ¨ 
          mov eax,core_data_seg_sel
          mov ds,eax
       
          cld
 
-         mov ecx,[es:0x24]                  ;ÓÃ»§³ÌĞòµÄSALTÌõÄ¿Êı
-         mov edi,0x28                       ;ÓÃ»§³ÌĞòÄÚµÄSALTÎ»ÓÚÍ·²¿ÄÚ0x2c´¦
+         mov ecx,[es:0x24]                  ;ç”¨æˆ·ç¨‹åºçš„SALTæ¡ç›®æ•°
+         mov edi,0x28                       ;ç”¨æˆ·ç¨‹åºå†…çš„SALTä½äºå¤´éƒ¨å†…0x2cå¤„
   .b2: 
          push ecx
          push edi
@@ -494,19 +494,19 @@ load_relocate_program:                      ;¼ÓÔØ²¢ÖØ¶¨Î»ÓÃ»§³ÌĞò
          push esi
          push ecx
 
-         mov ecx,64                         ;¼ìË÷±íÖĞ£¬Ã¿ÌõÄ¿µÄ±È½Ï´ÎÊı 
-         repe cmpsd                         ;Ã¿´Î±È½Ï4×Ö½Ú 
+         mov ecx,64                         ;æ£€ç´¢è¡¨ä¸­ï¼Œæ¯æ¡ç›®çš„æ¯”è¾ƒæ¬¡æ•° 
+         repe cmpsd                         ;æ¯æ¬¡æ¯”è¾ƒ4å­—èŠ‚ 
          jnz .b4
-         mov eax,[esi]                      ;ÈôÆ¥Åä£¬esiÇ¡ºÃÖ¸ÏòÆäºóµÄµØÖ·Êı¾İ
-         mov [es:edi-256],eax               ;½«×Ö·û´®¸ÄĞ´³ÉÆ«ÒÆµØÖ· 
+         mov eax,[esi]                      ;è‹¥åŒ¹é…ï¼Œesiæ°å¥½æŒ‡å‘å…¶åçš„åœ°å€æ•°æ®
+         mov [es:edi-256],eax               ;å°†å­—ç¬¦ä¸²æ”¹å†™æˆåç§»åœ°å€ 
          mov ax,[esi+4]
-         mov [es:edi-252],ax                ;ÒÔ¼°¶ÎÑ¡Ôñ×Ó 
+         mov [es:edi-252],ax                ;ä»¥åŠæ®µé€‰æ‹©å­ 
   .b4:
       
          pop ecx
          pop esi
          add esi,salt_item_len
-         pop edi                            ;´ÓÍ·±È½Ï 
+         pop edi                            ;ä»å¤´æ¯”è¾ƒ 
          loop .b3
       
          pop edi
@@ -516,8 +516,8 @@ load_relocate_program:                      ;¼ÓÔØ²¢ÖØ¶¨Î»ÓÃ»§³ÌĞò
 
          mov ax,[es:0x04]
 
-         pop es                             ;»Ö¸´µ½µ÷ÓÃ´Ë¹ı³ÌÇ°µÄes¶Î 
-         pop ds                             ;»Ö¸´µ½µ÷ÓÃ´Ë¹ı³ÌÇ°µÄds¶Î
+         pop es                             ;æ¢å¤åˆ°è°ƒç”¨æ­¤è¿‡ç¨‹å‰çš„esæ®µ 
+         pop ds                             ;æ¢å¤åˆ°è°ƒç”¨æ­¤è¿‡ç¨‹å‰çš„dsæ®µ
       
          pop edi
          pop esi
@@ -529,13 +529,13 @@ load_relocate_program:                      ;¼ÓÔØ²¢ÖØ¶¨Î»ÓÃ»§³ÌĞò
       
 ;-------------------------------------------------------------------------------
 start:
-         mov ecx,core_data_seg_sel           ;Ê¹dsÖ¸ÏòºËĞÄÊı¾İ¶Î 
+         mov ecx,core_data_seg_sel           ;ä½¿dsæŒ‡å‘æ ¸å¿ƒæ•°æ®æ®µ 
          mov ds,ecx
 
          mov ebx,message_1
          call sys_routine_seg_sel:put_string
                                          
-         ;ÏÔÊ¾´¦ÀíÆ÷Æ·ÅÆĞÅÏ¢ 
+         ;æ˜¾ç¤ºå¤„ç†å™¨å“ç‰Œä¿¡æ¯ 
          mov eax,0x80000002
          cpuid
          mov [cpu_brand + 0x00],eax
@@ -566,32 +566,32 @@ start:
 
          mov ebx,message_5
          call sys_routine_seg_sel:put_string
-         mov esi,50                          ;ÓÃ»§³ÌĞòÎ»ÓÚÂß¼­50ÉÈÇø 
+         mov esi,50                          ;ç”¨æˆ·ç¨‹åºä½äºé€»è¾‘50æ‰‡åŒº 
          call load_relocate_program
       
          mov ebx,do_status
          call sys_routine_seg_sel:put_string
       
-         mov [esp_pointer],esp               ;ÁÙÊ±±£´æ¶ÑÕ»Ö¸Õë
+         mov [esp_pointer],esp               ;ä¸´æ—¶ä¿å­˜å †æ ˆæŒ‡é’ˆ
        
          mov ds,ax
       
-         jmp far [0x10]                      ;¿ØÖÆÈ¨½»¸øÓÃ»§³ÌĞò£¨Èë¿Úµã£©
-                                             ;¶ÑÕ»¿ÉÄÜÇĞ»» 
+         jmp far [0x10]                      ;æ§åˆ¶æƒäº¤ç»™ç”¨æˆ·ç¨‹åºï¼ˆå…¥å£ç‚¹ï¼‰
+                                             ;å †æ ˆå¯èƒ½åˆ‡æ¢ 
 
-return_point:                                ;ÓÃ»§³ÌĞò·µ»Øµã
-         mov eax,core_data_seg_sel           ;Ê¹dsÖ¸ÏòºËĞÄÊı¾İ¶Î
+return_point:                                ;ç”¨æˆ·ç¨‹åºè¿”å›ç‚¹
+         mov eax,core_data_seg_sel           ;ä½¿dsæŒ‡å‘æ ¸å¿ƒæ•°æ®æ®µ
          mov ds,eax
 
-         mov eax,core_stack_seg_sel          ;ÇĞ»»»ØÄÚºË×Ô¼ºµÄ¶ÑÕ»
+         mov eax,core_stack_seg_sel          ;åˆ‡æ¢å›å†…æ ¸è‡ªå·±çš„å †æ ˆ
          mov ss,eax 
          mov esp,[esp_pointer]
 
          mov ebx,message_6
          call sys_routine_seg_sel:put_string
 
-         ;ÕâÀï¿ÉÒÔ·ÅÖÃÇå³ıÓÃ»§³ÌĞò¸÷ÖÖÃèÊö·ûµÄÖ¸Áî
-         ;Ò²¿ÉÒÔ¼ÓÔØ²¢Æô¶¯ÆäËü³ÌĞò
+         ;è¿™é‡Œå¯ä»¥æ”¾ç½®æ¸…é™¤ç”¨æˆ·ç¨‹åºå„ç§æè¿°ç¬¦çš„æŒ‡ä»¤
+         ;ä¹Ÿå¯ä»¥åŠ è½½å¹¶å¯åŠ¨å…¶å®ƒç¨‹åº
        
          hlt
             

@@ -1,28 +1,28 @@
-         ;´úÂëÇåµ¥13-3
-         ;ÎÄ¼şÃû£ºc13.asm
-         ;ÎÄ¼şËµÃ÷£ºÓÃ»§³ÌĞò 
-         ;´´½¨ÈÕÆÚ£º2011-10-30 15:19   
+         ;ä»£ç æ¸…å•13-3
+         ;æ–‡ä»¶åï¼šc13.asm
+         ;æ–‡ä»¶è¯´æ˜ï¼šç”¨æˆ·ç¨‹åº 
+         ;åˆ›å»ºæ—¥æœŸï¼š2011-10-30 15:19   
          
 ;===============================================================================
 SECTION header vstart=0
 
-         program_length   dd program_end          ;³ÌĞò×Ü³¤¶È#0x00
+         program_length   dd program_end          ;ç¨‹åºæ€»é•¿åº¦#0x00
          
-         head_len         dd header_end           ;³ÌĞòÍ·²¿µÄ³¤¶È#0x04
+         head_len         dd header_end           ;ç¨‹åºå¤´éƒ¨çš„é•¿åº¦#0x04
 
-         stack_seg        dd 0                    ;ÓÃÓÚ½ÓÊÕ¶ÑÕ»¶ÎÑ¡Ôñ×Ó#0x08
-         stack_len        dd 1                    ;³ÌĞò½¨ÒéµÄ¶ÑÕ»´óĞ¡#0x0c
-                                                  ;ÒÔ4KBÎªµ¥Î»
+         stack_seg        dd 0                    ;ç”¨äºæ¥æ”¶å †æ ˆæ®µé€‰æ‹©å­#0x08
+         stack_len        dd 1                    ;ç¨‹åºå»ºè®®çš„å †æ ˆå¤§å°#0x0c
+                                                  ;ä»¥4KBä¸ºå•ä½
                                                   
-         prgentry         dd start                ;³ÌĞòÈë¿Ú#0x10 
-         code_seg         dd section.code.start   ;´úÂë¶ÎÎ»ÖÃ#0x14
-         code_len         dd code_end             ;´úÂë¶Î³¤¶È#0x18
+         prgentry         dd start                ;ç¨‹åºå…¥å£#0x10 
+         code_seg         dd section.code.start   ;ä»£ç æ®µä½ç½®#0x14
+         code_len         dd code_end             ;ä»£ç æ®µé•¿åº¦#0x18
 
-         data_seg         dd section.data.start   ;Êı¾İ¶ÎÎ»ÖÃ#0x1c
-         data_len         dd data_end             ;Êı¾İ¶Î³¤¶È#0x20
+         data_seg         dd section.data.start   ;æ•°æ®æ®µä½ç½®#0x1c
+         data_len         dd data_end             ;æ•°æ®æ®µé•¿åº¦#0x20
              
 ;-------------------------------------------------------------------------------
-         ;·ûºÅµØÖ·¼ìË÷±í
+         ;ç¬¦å·åœ°å€æ£€ç´¢è¡¨
          salt_items       dd (header_end-salt)/256 ;#0x24
          
          salt:                                     ;#0x28
@@ -40,7 +40,7 @@ header_end:
 ;===============================================================================
 SECTION data vstart=0    
                          
-         buffer times 1024 db  0         ;»º³åÇø
+         buffer times 1024 db  0         ;ç¼“å†²åŒº
 
          message_1         db  0x0d,0x0a,0x0d,0x0a
                            db  '**********User program is runing**********'
@@ -67,9 +67,9 @@ start:
          mov ebx,message_1
          call far [fs:PrintString]
      
-         mov eax,100                         ;Âß¼­ÉÈÇøºÅ100
-         mov ebx,buffer                      ;»º³åÇøÆ«ÒÆµØÖ·
-         call far [fs:ReadDiskData]          ;¶Î¼äµ÷ÓÃ
+         mov eax,100                         ;é€»è¾‘æ‰‡åŒºå·100
+         mov ebx,buffer                      ;ç¼“å†²åŒºåç§»åœ°å€
+         call far [fs:ReadDiskData]          ;æ®µé—´è°ƒç”¨
      
          mov ebx,message_2
          call far [fs:PrintString]
@@ -77,7 +77,7 @@ start:
          mov ebx,buffer 
          call far [fs:PrintString]           ;too.
      
-         jmp far [fs:TerminateProgram]       ;½«¿ØÖÆÈ¨·µ»Øµ½ÏµÍ³ 
+         jmp far [fs:TerminateProgram]       ;å°†æ§åˆ¶æƒè¿”å›åˆ°ç³»ç»Ÿ 
       
 code_end:
 

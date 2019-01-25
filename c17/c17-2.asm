@@ -1,16 +1,16 @@
-         ;´úÂëÇåµ¥17-4
-         ;ÎÄ¼şÃû£ºc17_2.asm
-         ;ÎÄ¼şËµÃ÷£ºÓÃ»§³ÌĞò 
-         ;´´½¨ÈÕÆÚ£º2012-07-16 12:27   
+         ;ä»£ç æ¸…å•17-4
+         ;æ–‡ä»¶åï¼šc17_2.asm
+         ;æ–‡ä»¶è¯´æ˜ï¼šç”¨æˆ·ç¨‹åº 
+         ;åˆ›å»ºæ—¥æœŸï¼š2012-07-16 12:27   
 
-         program_length   dd program_end          ;³ÌĞò×Ü³¤¶È#0x00
-         entry_point      dd start                ;³ÌĞòÈë¿Úµã#0x04
-         salt_position    dd salt_begin           ;SALT±íÆğÊ¼Æ«ÒÆÁ¿#0x08 
-         salt_items       dd (salt_end-salt_begin)/256 ;SALTÌõÄ¿Êı#0x0C
+         program_length   dd program_end          ;ç¨‹åºæ€»é•¿åº¦#0x00
+         entry_point      dd start                ;ç¨‹åºå…¥å£ç‚¹#0x04
+         salt_position    dd salt_begin           ;SALTè¡¨èµ·å§‹åç§»é‡#0x08 
+         salt_items       dd (salt_end-salt_begin)/256 ;SALTæ¡ç›®æ•°#0x0C
 
 ;-------------------------------------------------------------------------------
 
-         ;·ûºÅµØÖ·¼ìË÷±í
+         ;ç¬¦å·åœ°å€æ£€ç´¢è¡¨
          salt_begin:                                     
 
          PrintString      db  '@PrintString'
@@ -40,7 +40,7 @@ start:
          call far [PrintString]
          jmp start  
                 
-         call far [TerminateProgram]              ;ÍË³ö£¬²¢½«¿ØÖÆÈ¨·µ»Øµ½ºËĞÄ 
+         call far [TerminateProgram]              ;é€€å‡ºï¼Œå¹¶å°†æ§åˆ¶æƒè¿”å›åˆ°æ ¸å¿ƒ 
     
 ;-------------------------------------------------------------------------------
 program_end:
