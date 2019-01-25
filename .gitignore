@@ -1,0 +1,4 @@
+*.out
+*.bin
+*bochsout.*
+*.DS_Store
