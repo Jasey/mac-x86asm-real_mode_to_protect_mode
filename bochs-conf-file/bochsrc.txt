@@ -8,8 +8,8 @@ megs: 32
  
 # 第二步，设置对应真实机器的BIOS和VGA BIOS.
 # 对应两个关键字为：romimage 和 vgaromimage
-romimage: file=$BXSHARE/BIOS-bochs-latest
-vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+romimage: file=/Users/jasey/tools/bochs/share/bochs/BIOS-bochs-latest
+vgaromimage: file=/Users/jasey/tools/bochs/share/bochs/VGABIOS-lgpl-latest
  
 # 第三步，设置Bochs所使用的磁盘，软盘的关键字为floppy。
 # 若只有一个软盘，则使用floppya即可，若有多个，则为floppya，floppyb...
