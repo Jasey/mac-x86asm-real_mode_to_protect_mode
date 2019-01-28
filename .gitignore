@@ -2,3 +2,4 @@
 *.bin
 *bochsout.*
 *.DS_Store
+*.lst
